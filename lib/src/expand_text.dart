@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'expand_arrow.dart';
 
-/// TEXT EXPAND WIDGET
-/// Stateful widget, which when tapped, opens more details.
-/// It expands a [Text] widget, maxing its [maxLines] parameter.
 class ExpandText extends StatefulWidget {
   final String text;
   final int maxLength;
   final TextStyle style;
+  final TextAlign textAlign;
 
-  ExpandText({
-    @required this.text,
+  ExpandText(
+    this.text, {
     this.maxLength = 5,
     this.style,
+    this.textAlign,
   });
 
   @override
@@ -21,47 +20,36 @@ class ExpandText extends StatefulWidget {
 }
 
 class _ExpandTextState extends State<ExpandText> {
-  bool _isShort = true;
+  bool _isMinimized = true;
 
-  void toggleContent() => setState(() => _isShort = !_isShort);
+  void toggleContent() => setState(() => _isMinimized = !_isMinimized);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, size) {
-      final TextPainter textPainter = TextPainter(
+      final TextPainter _textPainter = TextPainter(
         text: TextSpan(text: widget.text),
         textDirection: TextDirection.rtl,
         maxLines: widget.maxLength,
       )..layout(maxWidth: size.maxWidth);
-      final TextStyle textStyle = widget.style ??
-          TextStyle(
-            color: Theme.of(context).textTheme.caption.color,
-            fontSize: 15,
-          );
 
-      return textPainter.didExceedMaxLines
+      return _textPainter.didExceedMaxLines
           ? Column(children: <Widget>[
               Text(
                 widget.text,
-                textAlign: TextAlign.justify,
+                textAlign: widget.textAlign,
                 overflow: TextOverflow.fade,
-                style: textStyle,
-                maxLines: _isShort ? widget.maxLength : null,
+                style: widget.style,
+                maxLines: _isMinimized ? widget.maxLength : null,
               ),
-              _isShort
-                  ? ExpandArrow.maximize(
-                      message: '',
-                      onTap: () => toggleContent(),
-                    )
-                  : ExpandArrow.minimize(
-                      message: '',
-                      onTap: () => toggleContent(),
-                    )
+              ExpandArrow(
+                onTap: () => toggleContent(),
+              )
             ])
           : Text(
               widget.text,
-              textAlign: TextAlign.justify,
-              style: textStyle,
+              textAlign: widget.textAlign,
+              style: widget.style,
             );
     });
   }

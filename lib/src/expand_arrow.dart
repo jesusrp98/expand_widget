@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
 
-/// ICON EXPAND WIDGET
-/// Auxiliary widget with allows user to expand a widget.
-class ExpandArrow extends StatelessWidget {
-  final IconData icon;
-  final String message;
-  final VoidCallback onTap;
+class ExpandArrow extends StatefulWidget {
+  final String minMessage, maxMessage;
+  final Function onTap;
+  final Color color;
+  final double size;
 
   ExpandArrow({
-    @required this.icon,
-    @required this.message,
-    this.onTap,
+    this.minMessage = 'Show more',
+    this.maxMessage = 'Show less',
+    @required this.onTap,
+    this.color,
+    this.size,
   });
+
+  @override
+  _ExpandArrowState createState() => _ExpandArrowState();
+}
+
+class _ExpandArrowState extends State<ExpandArrow> {
+  bool _isMinimized = true;
 
   @override
   Widget build(BuildContext context) {
     return Tooltip(
       message: message,
       child: InkResponse(
-        child: Icon(icon, color: Theme.of(context).textTheme.caption.color),
-        onTap: onTap,
+        child: Icon(
+          icon,
+          color: widget.color,
+          size: widget.size,
+        ),
+        onTap: () {
+          _isMinimized = !_isMinimized;
+          widget.onTap();
+        },
       ),
     );
   }
 
-  factory ExpandArrow.maximize({String message, VoidCallback onTap}) {
-    return ExpandArrow(
-      icon: Icons.expand_more,
-      message: message,
-      onTap: onTap,
-    );
-  }
+  String get message => _isMinimized ? widget.minMessage : widget.maxMessage;
 
-  factory ExpandArrow.minimize({String message, VoidCallback onTap}) {
-    return ExpandArrow(
-      icon: Icons.expand_less,
-      message: message,
-      onTap: onTap,
-    );
-  }
+  IconData get icon => _isMinimized ? Icons.expand_more : Icons.expand_less;
 }
