@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'expand_icon.dart';
+import 'expand_arrow.dart';
 
 /// ROW EXPAND WIDGET
 /// Stateful widget, which when tapped, opens more details.
 /// Those details are specified in the [child] variable.
-class RowExpand extends StatefulWidget {
+class ExpandWidget extends StatefulWidget {
   final Widget child;
 
-  RowExpand(this.child);
+  ExpandWidget(this.child);
 
   @override
-  _RowExpandState createState() => _RowExpandState();
+  _ExpandWidgetState createState() => _ExpandWidgetState();
 }
 
-class _RowExpandState extends State<RowExpand> {
+class _ExpandWidgetState extends State<ExpandWidget> {
   bool _isHide = true;
 
   void toggleContent() => setState(() => _isHide = !_isHide);
@@ -22,7 +22,7 @@ class _RowExpandState extends State<RowExpand> {
   @override
   Widget build(BuildContext context) {
     return _isHide
-        ? IconExpand.maximize(
+        ? ExpandArrow.maximize(
             message: '',
             onTap: () => toggleContent(),
           )
@@ -30,7 +30,7 @@ class _RowExpandState extends State<RowExpand> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               widget.child,
-              IconExpand.minimize(
+              ExpandArrow.minimize(
                 message: '',
                 onTap: () => toggleContent(),
               )

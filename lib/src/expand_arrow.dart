@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 /// ICON EXPAND WIDGET
 /// Auxiliary widget with allows user to expand a widget.
-class IconExpand extends StatelessWidget {
+class ExpandArrow extends StatelessWidget {
   final IconData icon;
   final String message;
   final VoidCallback onTap;
 
-  IconExpand({
+  ExpandArrow({
     @required this.icon,
     @required this.message,
     this.onTap,
@@ -24,16 +24,16 @@ class IconExpand extends StatelessWidget {
     );
   }
 
-  factory IconExpand.maximize({String message, VoidCallback onTap}) {
-    return IconExpand(
+  factory ExpandArrow.maximize({String message, VoidCallback onTap}) {
+    return ExpandArrow(
       icon: Icons.expand_more,
       message: message,
       onTap: onTap,
     );
   }
 
-  factory IconExpand.minimize({String message, VoidCallback onTap}) {
-    return IconExpand(
+  factory ExpandArrow.minimize({String message, VoidCallback onTap}) {
+    return ExpandArrow(
       icon: Icons.expand_less,
       message: message,
       onTap: onTap,

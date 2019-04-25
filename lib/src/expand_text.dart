@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
-import 'expand_icon.dart';
+import 'expand_arrow.dart';
 
 /// TEXT EXPAND WIDGET
 /// Stateful widget, which when tapped, opens more details.
 /// It expands a [Text] widget, maxing its [maxLines] parameter.
-class TextExpand extends StatefulWidget {
+class ExpandText extends StatefulWidget {
   final String text;
   final int maxLength;
   final TextStyle style;
 
-  TextExpand({
+  ExpandText({
     @required this.text,
     this.maxLength = 5,
     this.style,
   });
 
   @override
-  _TextExpandState createState() => _TextExpandState();
+  _ExpandTextState createState() => _ExpandTextState();
 }
 
-class _TextExpandState extends State<TextExpand> {
+class _ExpandTextState extends State<ExpandText> {
   bool _isShort = true;
 
   void toggleContent() => setState(() => _isShort = !_isShort);
@@ -49,11 +49,11 @@ class _TextExpandState extends State<TextExpand> {
                 maxLines: _isShort ? widget.maxLength : null,
               ),
               _isShort
-                  ? IconExpand.maximize(
+                  ? ExpandArrow.maximize(
                       message: '',
                       onTap: () => toggleContent(),
                     )
-                  : IconExpand.minimize(
+                  : ExpandArrow.minimize(
                       message: '',
                       onTap: () => toggleContent(),
                     )
