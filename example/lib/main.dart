@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
         title: Text('Expand Widget'),
       ),
       body: ListView(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
         children: <Widget>[
           Card(
             child: Padding(
@@ -32,28 +32,29 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Expand text',
+                    'Expand Text',
                     style: Theme.of(context).textTheme.title,
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 8),
                   ExpandText(
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                    textAlign: TextAlign.justify,
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 4),
           Card(
             child: Padding(
               padding: EdgeInsets.all(8),
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Expand widgets',
+                    'Expand Widgets',
                     style: Theme.of(context).textTheme.title,
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 8),
                   OutlineButton(
                     child: Text('Button0'),
                     onPressed: () => print('Pressed button0'),
