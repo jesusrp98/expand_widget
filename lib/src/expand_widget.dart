@@ -21,7 +21,7 @@ class _ExpandWidgetState extends State<ExpandWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _isMinimized ? SizedBox() : widget.child,
+        if (!_isMinimized) widget.child,
         ExpandArrow(
           onTap: () => toggleContent(),
         )

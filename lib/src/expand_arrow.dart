@@ -24,12 +24,15 @@ class _ExpandArrowState extends State<ExpandArrow> {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: message,
+      message: _message,
       child: InkResponse(
-        child: Icon(
-          icon,
-          color: widget.color,
-          size: widget.size,
+        child: Padding(
+          padding: EdgeInsets.all(4),
+          child: Icon(
+            _icon,
+            color: widget.color ?? Theme.of(context).textTheme.caption.color,
+            size: widget.size,
+          ),
         ),
         onTap: () {
           _isMinimized = !_isMinimized;
@@ -39,7 +42,7 @@ class _ExpandArrowState extends State<ExpandArrow> {
     );
   }
 
-  String get message => _isMinimized ? widget.minMessage : widget.maxMessage;
+  String get _message => _isMinimized ? widget.minMessage : widget.maxMessage;
 
-  IconData get icon => _isMinimized ? Icons.expand_more : Icons.expand_less;
+  IconData get _icon => _isMinimized ? Icons.expand_more : Icons.expand_less;
 }

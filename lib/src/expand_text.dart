@@ -26,7 +26,7 @@ class _ExpandTextState extends State<ExpandText> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, size) {
+    return LayoutBuilder(builder: (_, size) {
       final TextPainter _textPainter = TextPainter(
         text: TextSpan(text: widget.text),
         textDirection: TextDirection.rtl,
