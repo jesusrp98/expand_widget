@@ -14,8 +14,8 @@ There are two main 'expand' widgets:
 * **Expand Text:** Useful when texts can be quite big for a small screen. It adds the ability to show the full content if the user wants to.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/0.png" width="415" hspace="8">
   <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/1.png" width="415" hspace="8">
+  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/0.png" width="415" hspace="8">
 </p>
 
 ## Example
