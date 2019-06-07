@@ -85,29 +85,42 @@ class _ExpandTextState extends State<ExpandText>
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChildren(BuildContext context, Widget child) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        AnimatedSize(
-          vsync: this,
-          duration: widget.animationDuration,
-          alignment: Alignment.topCenter,
-          curve: Curves.easeInOutCubic,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(),
-            child: child,
-          ),
+    return LayoutBuilder(builder: (context, size) {
+      final TextPainter textPainter = TextPainter(
+        text: TextSpan(
+          text: widget.text,
+          style: widget.style,
         ),
-        ExpandArrow(
-          minMessage: widget.minMessage,
-          maxMessage: widget.maxMessage,
-          color: widget.arrowColor,
-          size: widget.arrowSize,
-          animation: _iconTurns,
-          onTap: _handleTap,
-        ),
-      ],
-    );
+        textDirection: TextDirection.rtl,
+        maxLines: widget.maxLength,
+      )..layout(maxWidth: size.maxWidth);
+
+      return textPainter.didExceedMaxLines
+          ? Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                AnimatedSize(
+                  vsync: this,
+                  duration: widget.animationDuration,
+                  alignment: Alignment.topCenter,
+                  curve: Curves.easeInOutCubic,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(),
+                    child: child,
+                  ),
+                ),
+                ExpandArrow(
+                  minMessage: widget.minMessage,
+                  maxMessage: widget.maxMessage,
+                  color: widget.arrowColor,
+                  size: widget.arrowSize,
+                  animation: _iconTurns,
+                  onTap: _handleTap,
+                ),
+              ],
+            )
+          : child;
+    });
   }
 
   @override
