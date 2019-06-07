@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 
 import 'expand_arrow.dart';
 
+const Duration _kExpand = Duration(milliseconds: 300);
+
 class ExpandChild extends StatefulWidget {
   final String minMessage, maxMessage;
   final Color arrowColor;
@@ -17,7 +19,7 @@ class ExpandChild extends StatefulWidget {
     this.maxMessage = 'Show less',
     this.arrowColor,
     this.arrowSize,
-    this.animationDuration = const Duration(milliseconds: 300),
+    this.animationDuration = _kExpand,
     @required this.child,
   }) : super(key: key);
 
@@ -62,7 +64,7 @@ class _ExpandChildState extends State<ExpandChild>
     });
   }
 
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChild(BuildContext context, Widget child) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -89,7 +91,7 @@ class _ExpandChildState extends State<ExpandChild>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller.view,
-      builder: _buildChildren,
+      builder: _buildChild,
       child: widget.child,
     );
   }
