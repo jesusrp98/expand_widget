@@ -28,7 +28,7 @@ class ExpandText extends StatefulWidget {
     this.arrowColor,
     this.arrowSize,
     this.animationDuration = _kExpand,
-    this.maxLength = 5,
+    this.maxLength = 8,
     this.style,
     this.textAlign,
   }) : super(key: key);

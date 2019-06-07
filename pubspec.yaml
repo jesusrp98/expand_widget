@@ -1,6 +1,6 @@
 name: expand_widget
-description: Ability to expand a widget collection or text.
-version: 0.1.0
+description: Ability to easily expand and retract a widget collection or text.
+version: 0.1.1
 author: Jesus Rodriguez <jesusrope98@outlook.com>
 homepage: https://github.com/jesusrp98/expand_widget
 
