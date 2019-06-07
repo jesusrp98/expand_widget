@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// EXPAND ARROW WIDGET
+/// This widget is used in both [ExpandChild] & [ExpandText] widgets to show
+/// the hidden information to the user. It has an [animation] parameter.
+/// Other widget parameters, such as [size] & [color] are customizable.
 class ExpandArrow extends StatefulWidget {
   final String minMessage, maxMessage;
   final Animation<double> animation;
@@ -7,7 +11,7 @@ class ExpandArrow extends StatefulWidget {
   final Color color;
   final double size;
 
-  ExpandArrow({
+  const ExpandArrow({
     this.minMessage,
     this.maxMessage,
     @required this.animation,
@@ -42,6 +46,7 @@ class _ExpandArrowState extends State<ExpandArrow> {
     );
   }
 
+  /// Shows a tooltip message depending on the [animation] state.
   String get _message =>
       widget.animation.value == 0 ? widget.minMessage : widget.maxMessage;
 }
