@@ -1,8 +1,8 @@
 name: expand_widget
-description: A new Flutter package project.
+description: Ability to expand a widget collection or text.
 version: 0.0.1
-author:
-homepage:
+author: Jesus Rodriguez <jesusrope98@outlook.com>
+homepage: https://github.com/jesusrp98/expand_widget
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
