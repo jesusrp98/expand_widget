@@ -74,13 +74,11 @@ class _ExpandTextState extends State<ExpandText>
         AnimatedSize(
           vsync: this,
           duration: widget.animationDuration,
+          alignment: Alignment.topCenter,
           curve: Curves.easeInOutCubic,
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(),
-              child: child,
-            ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(),
+            child: child,
           ),
         ),
         ExpandArrow(
