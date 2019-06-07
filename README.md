@@ -6,7 +6,9 @@
 [![Patreon](https://img.shields.io/badge/Support-Patreon-orange.svg?style=for-the-badge)](https://www.patreon.com/jesusrp98)
 
 This Dart package offers developers a streamlined library of Flutter widgets, useful for expanding general & text widgets, when user wishes.
+
 When the users clicks the 'expand' arrow, the hidden widgets or content unfold with a cool animation.
+
 There are two main 'expand' widgets:
 * **Expand Child:** Useful to show more widgets related to the content already visible by the user.
 * **Expand Text:** Useful when texts can be quite big for a small screen. It adds the ability to show the full content if the user wants to.
