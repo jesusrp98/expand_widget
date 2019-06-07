@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 class ExpandArrow extends StatefulWidget {
   final String minMessage, maxMessage;
+  final Animation<double> animation;
   final Function onTap;
   final Color color;
   final double size;
 
   ExpandArrow({
-    this.minMessage = 'Show more',
-    this.maxMessage = 'Show less',
+    this.minMessage,
+    this.maxMessage,
+    @required this.animation,
     @required this.onTap,
     this.color,
     this.size,
@@ -19,30 +21,27 @@ class ExpandArrow extends StatefulWidget {
 }
 
 class _ExpandArrowState extends State<ExpandArrow> {
-  bool _isMinimized = true;
-
   @override
   Widget build(BuildContext context) {
     return Tooltip(
       message: _message,
       child: InkResponse(
         child: Padding(
-          padding: EdgeInsets.all(4),
-          child: Icon(
-            _icon,
-            color: widget.color ?? Theme.of(context).textTheme.caption.color,
-            size: widget.size,
+          padding: const EdgeInsets.all(4),
+          child: RotationTransition(
+            turns: widget.animation,
+            child: Icon(
+              Icons.expand_more,
+              color: widget.color ?? Theme.of(context).textTheme.caption.color,
+              size: widget.size,
+            ),
           ),
         ),
-        onTap: () {
-          _isMinimized = !_isMinimized;
-          widget.onTap();
-        },
+        onTap: widget.onTap,
       ),
     );
   }
 
-  String get _message => _isMinimized ? widget.minMessage : widget.maxMessage;
-
-  IconData get _icon => _isMinimized ? Icons.expand_more : Icons.expand_less;
+  String get _message =>
+      widget.animation.value == 0 ? widget.minMessage : widget.maxMessage;
 }

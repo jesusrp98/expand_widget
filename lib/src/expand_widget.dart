@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ExpandWidget extends StatefulWidget {
+import 'expand_arrow.dart';
+
+class ExpandChild extends StatefulWidget {
+  final String minMessage, maxMessage;
+  final Color arrowColor;
+  final double arrowSize;
+
   final Duration animationDuration;
   final Widget child;
 
-  const ExpandWidget({
+  const ExpandChild({
     Key key,
-    this.animationDuration = const Duration(milliseconds: 350),
+    this.minMessage = 'Show more',
+    this.maxMessage = 'Show less',
+    this.arrowColor,
+    this.arrowSize,
+    this.animationDuration = const Duration(milliseconds: 300),
     @required this.child,
   }) : super(key: key);
 
   @override
-  _ExpandWidgetState createState() => _ExpandWidgetState();
+  _ExpandChildState createState() => _ExpandChildState();
 }
 
-class _ExpandWidgetState extends State<ExpandWidget>
+class _ExpandChildState extends State<ExpandChild>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _easeInTween =
       CurveTween(curve: Curves.easeInOutCubic);
@@ -63,22 +73,13 @@ class _ExpandWidgetState extends State<ExpandWidget>
             child: child,
           ),
         ),
-        Tooltip(
-          message: _isExpanded ? 'Show less' : 'Show more',
-          child: InkResponse(
-            child: Padding(
-              padding: const EdgeInsets.all(4),
-              child: RotationTransition(
-                turns: _iconTurns,
-                child: Icon(
-                  Icons.expand_more,
-                  size: null,
-                  color: Theme.of(context).textTheme.caption.color,
-                ),
-              ),
-            ),
-            onTap: _handleTap,
-          ),
+        ExpandArrow(
+          minMessage: widget.minMessage,
+          maxMessage: widget.maxMessage,
+          color: widget.arrowColor,
+          size: widget.arrowSize,
+          animation: _iconTurns,
+          onTap: _handleTap,
         ),
       ],
     );
