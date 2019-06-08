@@ -30,15 +30,12 @@ class _ExpandArrowState extends State<ExpandArrow> {
     return Tooltip(
       message: _message,
       child: InkResponse(
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: RotationTransition(
-            turns: widget.animation,
-            child: Icon(
-              Icons.expand_more,
-              color: widget.color ?? Theme.of(context).textTheme.caption.color,
-              size: widget.size,
-            ),
+        child: RotationTransition(
+          turns: widget.animation,
+          child: Icon(
+            Icons.expand_more,
+            color: widget.color ?? Theme.of(context).textTheme.caption.color,
+            size: widget.size,
           ),
         ),
         onTap: widget.onTap,

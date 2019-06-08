@@ -37,7 +37,11 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   ExpandText(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                    '''Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nullam suscipit risus pulvinar, hendrerit nisi quis, vehicula ante. Morbi ut diam elit.
+Praesent non justo sodales, auctor lacus id, congue massa. Duis ac odio dui. Sed sed egestas metus. 
+Donec hendrerit velit magna. Vivamus elementum, nulla ac tempor euismod, erat nunc mollis diam, nec consequat nisl ex eu tellus.
+Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget nibh tempor lacus aliquam rutrum.''',
                     textAlign: TextAlign.justify,
                   ),
                 ],
