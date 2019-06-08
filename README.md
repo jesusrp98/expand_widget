@@ -1,7 +1,7 @@
 # Expand Widget
-[![Package](https://img.shields.io/pub/v/row_collection.svg?style=for-the-badge)](https://pub.dartlang.org/packages/expand_widget)
-[![License](https://img.shields.io/github/license/jesusrp98/row_collection.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-[![Stars](https://img.shields.io/github/stars/jesusrp98/row_collection.svg?style=for-the-badge)](https://github.com/jesusrp98/expand_widget/stargazers)
+[![Package](https://img.shields.io/pub/v/expand_widget.svg?style=for-the-badge)](https://pub.dartlang.org/packages/expand_widget)
+[![License](https://img.shields.io/github/license/jesusrp98/expand_widget.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![Stars](https://img.shields.io/github/stars/jesusrp98/expand_widget.svg?style=for-the-badge)](https://github.com/jesusrp98/expand_widget/stargazers)
 [![PayPal](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=for-the-badge)](https://www.paypal.com/paypalme/my/profile)
 [![Patreon](https://img.shields.io/badge/Support-Patreon-orange.svg?style=for-the-badge)](https://www.patreon.com/jesusrp98)
 
