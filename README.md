@@ -16,9 +16,9 @@ There are two main 'expand' widgets:
 * **Show Child:** In contrast to the 'Expand Child' widget, it doesn't have the ability to hide again the content.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/1.png" width="300" hspace="4">
   <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/0.png" width="300" hspace="4">
   <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/1.png" width="300" hspace="4">
+  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/2.png" width="300" hspace="4">
 </p>
 
 ## Example
