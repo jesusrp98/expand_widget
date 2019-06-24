@@ -12,14 +12,16 @@ When the users clicks the 'expand' arrow, the hidden widgets or content unfold w
 There are two main 'expand' widgets:
 * **Expand Child:** Useful to show more widgets related to the content already visible by the user.
 * **Expand Text:** Useful when texts can be quite big for a small screen. It adds the ability to show the full content if the user wants to.
+* **Show Child:** In contrast to the 'Expand Child' widget, it doesn't have the ability to hide again the content.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/1.png" width="415" hspace="8">
   <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/0.png" width="415" hspace="8">
+  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/2.png" width="415" hspace="8">
 </p>
 
 ## Example
-Here is an example of a simple use of this package, from both `ExpandChild` & `ExpandText` widgets. If you want to take a deeper look at the example, take a look at the [example/](https://github.com/jesusrp98/expand_widget/tree/master/example) folder provided with the project.
+Here is an example of a simple use of this package, from the `ExpandChild`, `ExpandText` & `ShowChild` widgets. If you want to take a deeper look at the example, take a look at the [example/](https://github.com/jesusrp98/expand_widget/tree/master/example) folder provided with the project.
 ```
 ExpandChild(
   child: Column(
@@ -44,6 +46,34 @@ ExpandChild(
 ExpandText(
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
   textAlign: TextAlign.justify,
+),
+```
+```
+ShowChild(
+indicator: Padding(
+  padding: EdgeInsets.all(8),
+  child: Text(
+    "SHOW MORE",
+    style: TextStyle(
+      color: Theme.of(context).textTheme.caption.color,
+    ),
+  ),
+),
+child: Column(
+  children: <Widget>[
+    OutlineButton(
+      child: Text('Button1'),
+      onPressed: () => print('Pressed button1'),
+    ),
+    OutlineButton(
+      child: Text('Button2'),
+      onPressed: () => print('Pressed button2'),
+    ),
+    OutlineButton(
+      child: Text('Button3'),
+      onPressed: () => print('Pressed button3'),
+    ),
+  ],
 ),
 ```
 
