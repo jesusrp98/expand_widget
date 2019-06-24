@@ -1,3 +1,4 @@
+
 # Expand Widget
 [![Package](https://img.shields.io/pub/v/expand_widget.svg?style=for-the-badge)](https://pub.dartlang.org/packages/expand_widget)
 [![License](https://img.shields.io/github/license/jesusrp98/expand_widget.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0.en.html)
@@ -15,9 +16,9 @@ There are two main 'expand' widgets:
 * **Show Child:** In contrast to the 'Expand Child' widget, it doesn't have the ability to hide again the content.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/1.png" width="415" hspace="8">
-  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/0.png" width="415" hspace="8">
-  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/2.png" width="415" hspace="8">
+  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/1.png" width="300" hspace="4">
+  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/0.png" width="300" hspace="4">
+  <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/1.png" width="300" hspace="4">
 </p>
 
 ## Example
