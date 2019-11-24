@@ -106,7 +106,10 @@ class _ExpandTextState extends State<ExpandText>
                   curve: Curves.easeInOutCubic,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(),
-                    child: child,
+                    child: GestureDetector(
+                      child: child,
+                      onTap: _handleTap,
+                    ),
                   ),
                 ),
                 ExpandArrow(
