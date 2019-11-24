@@ -19,6 +19,7 @@ class ExpandText extends StatefulWidget {
   final int maxLength;
   final TextStyle style;
   final TextAlign textAlign;
+  final bool expandOnTextTap;
 
   const ExpandText(
     this.text, {
@@ -31,6 +32,7 @@ class ExpandText extends StatefulWidget {
     this.maxLength = 8,
     this.style,
     this.textAlign,
+    this.expandOnTextTap = true,
   }) : super(key: key);
 
   @override
@@ -108,7 +110,7 @@ class _ExpandTextState extends State<ExpandText>
                     constraints: BoxConstraints(),
                     child: GestureDetector(
                       child: child,
-                      onTap: _handleTap,
+                      onTap: widget.expandOnTextTap ? _handleTap : () {},
                     ),
                   ),
                 ),
