@@ -19,6 +19,7 @@ class ExpandText extends StatefulWidget {
   final int maxLength;
   final TextStyle style;
   final TextAlign textAlign;
+  final bool expandWidth;
 
   const ExpandText(
     this.text, {
@@ -31,6 +32,7 @@ class ExpandText extends StatefulWidget {
     this.maxLength = 8,
     this.style,
     this.textAlign,
+    this.expandWidth = false,
   }) : super(key: key);
 
   @override
@@ -97,6 +99,7 @@ class _ExpandTextState extends State<ExpandText>
 
       return textPainter.didExceedMaxLines
           ? Column(
+              crossAxisAlignment: widget.expandWidth ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 AnimatedSize(
