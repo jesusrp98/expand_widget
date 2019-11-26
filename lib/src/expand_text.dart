@@ -10,10 +10,11 @@ const Duration _kExpand = Duration(milliseconds: 300);
 /// You can specify the [maxLenght] parameter. If the text is short enough,
 /// no 'expand arrow' widget will be shown.
 class ExpandText extends StatefulWidget {
+  final bool showMessage;
   final String minMessage, maxMessage;
+
   final Color arrowColor;
   final double arrowSize;
-
   final Duration animationDuration;
   final String text;
   final int maxLength;
@@ -26,8 +27,9 @@ class ExpandText extends StatefulWidget {
   const ExpandText(
     this.text, {
     Key key,
-    this.minMessage = 'Show more',
-    this.maxMessage = 'Show less',
+    this.showMessage = true,
+    this.minMessage = 'show more',
+    this.maxMessage = 'show less',
     this.arrowColor,
     this.arrowSize = 30,
     this.animationDuration = _kExpand,
@@ -121,18 +123,23 @@ class _ExpandTextState extends State<ExpandText>
                     ),
                   ),
                 ),
-                ExpandArrow(
-                  minMessage: widget.minMessage,
-                  maxMessage: widget.maxMessage,
-                  color: widget.arrowColor,
-                  size: widget.arrowSize,
-                  animation: _iconTurns,
-                  onTap: _handleTap,
-                ),
+                buildExpand(),
               ],
             )
           : child;
     });
+  }
+
+  Widget buildExpand() {
+    return ExpandArrow(
+      minMessage: widget.minMessage,
+      maxMessage: widget.maxMessage,
+      showMessage: widget.showMessage,
+      color: widget.arrowColor,
+      size: widget.arrowSize,
+      animation: _iconTurns,
+      onTap: _handleTap,
+    );
   }
 
   /// Returns the actual maximun number of allowed lines,

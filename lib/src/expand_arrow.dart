@@ -22,6 +22,9 @@ class ExpandArrow extends StatefulWidget {
   /// Defines arrow's size
   final double size;
 
+  /// Show message
+  final bool showMessage;
+
   const ExpandArrow({
     Key key,
     this.minMessage,
@@ -30,6 +33,7 @@ class ExpandArrow extends StatefulWidget {
     @required this.onTap,
     this.color,
     this.size,
+    this.showMessage = false,
   }) : super(key: key);
 
   @override
@@ -37,24 +41,38 @@ class ExpandArrow extends StatefulWidget {
 }
 
 class _ExpandArrowState extends State<ExpandArrow> {
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(4),
-      child: Tooltip(
-        message: message,
-        child: InkResponse(
-          child: RotationTransition(
-            turns: widget.animation,
-            child: Icon(
-              Icons.expand_more,
-              color: widget.color ?? Theme.of(context).textTheme.caption.color,
-              size: widget.size,
-            ),
+    return InkResponse(
+      onTap: widget.onTap,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Tooltip(
+            message: message,
+              child: RotationTransition(
+                turns: widget.animation,
+                child: Icon(
+                  Icons.expand_more,
+                  color: widget.color ?? Theme.of(context).textTheme.caption.color,
+                  size: widget.size,
+                ),
+              ),
           ),
-          onTap: widget.onTap,
-        ),
-      ),
+          Visibility(
+            visible: widget.showMessage,
+            child: Text(
+              message,
+              style: TextStyle(
+                color: widget.color,
+                fontSize: widget.size / 2,
+              ),
+            ),
+          )
+        ],
+      )
     );
   }
 
