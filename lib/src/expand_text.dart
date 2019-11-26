@@ -19,6 +19,7 @@ class ExpandText extends StatefulWidget {
   final int maxLength;
   final TextStyle style;
   final TextAlign textAlign;
+  final TextOverflow textOverflow;
 
   const ExpandText(
     this.text, {
@@ -31,6 +32,7 @@ class ExpandText extends StatefulWidget {
     this.maxLength = 8,
     this.style,
     this.textAlign,
+    this.textOverflow = TextOverflow.fade,
   }) : super(key: key);
 
   @override
@@ -123,18 +125,30 @@ class _ExpandTextState extends State<ExpandText>
     });
   }
 
+  Widget buildText() {
+    return Text(
+      widget.text,
+      textAlign: widget.textAlign,
+      overflow: widget.textOverflow,
+      style: widget.style,
+      maxLines: getMaxLines(),
+    );
+  }
+
+  int getMaxLines() {
+    if (widget.textOverflow == TextOverflow.ellipsis) {
+      return _isExpanded ? 2^64 : widget.maxLength;
+    }
+
+    return _isExpanded ? null : widget.maxLength;
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller.view,
       builder: _buildChildren,
-      child: Text(
-        widget.text,
-        textAlign: widget.textAlign,
-        overflow: TextOverflow.fade,
-        style: widget.style,
-        maxLines: _isExpanded ? null : widget.maxLength,
-      ),
+      child: buildText(),
     );
   }
 }
