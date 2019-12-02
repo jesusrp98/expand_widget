@@ -19,7 +19,7 @@ class ExpandText extends StatefulWidget {
   final int maxLength;
   final TextStyle style;
   final TextAlign textAlign;
-  final TextOverflow textOverflow;
+  final TextOverflow overflow;
 
   const ExpandText(
     this.text, {
@@ -32,7 +32,7 @@ class ExpandText extends StatefulWidget {
     this.maxLength = 8,
     this.style,
     this.textAlign,
-    this.textOverflow = TextOverflow.fade,
+    this.overflow = TextOverflow.fade,
   }) : super(key: key);
 
   @override
@@ -129,14 +129,14 @@ class _ExpandTextState extends State<ExpandText>
     return Text(
       widget.text,
       textAlign: widget.textAlign,
-      overflow: widget.textOverflow,
+      overflow: widget.overflow,
       style: widget.style,
       maxLines: getMaxLines(),
     );
   }
 
   int getMaxLines() {
-    if (widget.textOverflow == TextOverflow.ellipsis) {
+    if (widget.overflow == TextOverflow.ellipsis) {
       return _isExpanded ? 2^64 : widget.maxLength;
     }
 
