@@ -125,22 +125,16 @@ class _ExpandTextState extends State<ExpandText>
     });
   }
 
-  Widget buildText() {
-    return Text(
-      widget.text,
-      textAlign: widget.textAlign,
-      overflow: widget.overflow,
-      style: widget.style,
-      maxLines: getMaxLines(),
-    );
-  }
-
-  int getMaxLines() {
-    if (widget.overflow == TextOverflow.ellipsis) {
-      return _isExpanded ? 2^64 : widget.maxLength;
+  /// Returns the actual maximun number of allowed lines,
+  /// depending on [_isExpanded].
+  /// If [overflow] is set to ellipsis, it must not return null,
+  /// otherwise the entire app could explode :)
+  int _maxLines() {
+    if (_isExpanded) {
+      return (widget.overflow == TextOverflow.ellipsis) ? 2 ^ 64 : null;
+    } else {
+      return widget.maxLength;
     }
-
-    return _isExpanded ? null : widget.maxLength;
   }
 
   @override
@@ -148,7 +142,13 @@ class _ExpandTextState extends State<ExpandText>
     return AnimatedBuilder(
       animation: _controller.view,
       builder: _buildChildren,
-      child: buildText(),
+      child: Text(
+        widget.text,
+        textAlign: widget.textAlign,
+        overflow: widget.overflow,
+        style: widget.style,
+        maxLines: _maxLines(),
+      ),
     );
   }
 }
