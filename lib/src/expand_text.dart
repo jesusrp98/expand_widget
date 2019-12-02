@@ -28,7 +28,7 @@ class ExpandText extends StatefulWidget {
     this.minMessage = 'Show more',
     this.maxMessage = 'Show less',
     this.arrowColor,
-    this.arrowSize = 27,
+    this.arrowSize = 30,
     this.animationDuration = _kExpand,
     this.maxLength = 8,
     this.style,

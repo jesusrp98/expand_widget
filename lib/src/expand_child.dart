@@ -21,7 +21,7 @@ class ExpandChild extends StatefulWidget {
     this.minMessage = 'Show more',
     this.maxMessage = 'Show less',
     this.arrowColor,
-    this.arrowSize = 27,
+    this.arrowSize = 30,
     this.animationDuration = _kExpand,
     @required this.child,
   }) : super(key: key);
