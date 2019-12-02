@@ -8,7 +8,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expand Widget',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       home: HomePage(),
     );
   }
@@ -18,7 +20,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Expand Widget')),
+      appBar: AppBar(
+        title: Text('Expand Widget'),
+      ),
       body: ListView(
         padding: EdgeInsets.all(8),
         children: <Widget>[
@@ -33,10 +37,9 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   ExpandText(
-                    '''Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-Nullam suscipit risus pulvinar, hendrerit nisi quis, vehicula ante. Morbi ut diam elit.
-Praesent non justo sodales, auctor lacus id, congue massa. Duis ac odio dui. Sed sed egestas metus. 
-Donec hendrerit velit magna. Vivamus elementum, nulla ac tempor euismod, erat nunc mollis diam, nec consequat nisl ex eu tellus.
+                    '''
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit risus pulvinar, hendrerit nisi quis, vehicula ante. Morbi ut diam elit.
+Praesent non justo sodales, auctor lacus id, congue massa. Duis ac odio dui. Sed sed egestas metus. Donec hendrerit velit magna. Vivamus elementum, nulla ac tempor euismod, erat nunc mollis diam, nec consequat nisl ex eu tellus.
 Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget nibh tempor lacus aliquam rutrum.''',
                     textAlign: TextAlign.justify,
                   ),

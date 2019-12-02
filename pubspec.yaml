@@ -5,7 +5,7 @@ author: Jesus Rodriguez <jesusrope98@outlook.com>
 homepage: https://github.com/jesusrp98/expand_widget
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.5.0 <3.0.0"
 
 dependencies:
   flutter:
