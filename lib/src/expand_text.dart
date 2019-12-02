@@ -19,6 +19,7 @@ class ExpandText extends StatefulWidget {
   final int maxLength;
   final TextStyle style;
   final TextAlign textAlign;
+  final TextOverflow overflow;
   final bool expandWidth;
   final bool expandOnGesture;
 
@@ -33,6 +34,7 @@ class ExpandText extends StatefulWidget {
     this.maxLength = 8,
     this.style,
     this.textAlign,
+    this.overflow = TextOverflow.fade,
     this.expandWidth = false,
     this.expandOnGesture = true,
   }) : super(key: key);
@@ -133,6 +135,18 @@ class _ExpandTextState extends State<ExpandText>
     });
   }
 
+  /// Returns the actual maximun number of allowed lines,
+  /// depending on [_isExpanded].
+  /// If [overflow] is set to ellipsis, it must not return null,
+  /// otherwise the entire app could explode :)
+  int _maxLines() {
+    if (_isExpanded) {
+      return (widget.overflow == TextOverflow.ellipsis) ? 2 ^ 64 : null;
+    } else {
+      return widget.maxLength;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -141,9 +155,9 @@ class _ExpandTextState extends State<ExpandText>
       child: Text(
         widget.text,
         textAlign: widget.textAlign,
-        overflow: TextOverflow.fade,
+        overflow: widget.overflow,
         style: widget.style,
-        maxLines: _isExpanded ? null : widget.maxLength,
+        maxLines: _maxLines(),
       ),
     );
   }
