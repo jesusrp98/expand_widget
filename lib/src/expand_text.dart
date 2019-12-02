@@ -19,6 +19,7 @@ class ExpandText extends StatefulWidget {
   final int maxLength;
   final TextStyle style;
   final TextAlign textAlign;
+  final bool expandOnGesture;
 
   const ExpandText(
     this.text, {
@@ -31,6 +32,7 @@ class ExpandText extends StatefulWidget {
     this.maxLength = 8,
     this.style,
     this.textAlign,
+    this.expandOnGesture = true,
   }) : super(key: key);
 
   @override
@@ -74,7 +76,7 @@ class _ExpandTextState extends State<ExpandText>
   }
 
   /// Method called when the user clicks on the expand arrow.
-  void _handleTap() {
+  void _handleTap([DragEndDetails dragDetails]) {
     setState(() {
       _isExpanded = !_isExpanded;
       _isExpanded ? _controller.forward() : _controller.reverse();
@@ -106,7 +108,12 @@ class _ExpandTextState extends State<ExpandText>
                   curve: Curves.easeInOutCubic,
                   child: ConstrainedBox(
                     constraints: BoxConstraints(),
-                    child: child,
+                    child: GestureDetector(
+                      child: child,
+                      onTap: widget.expandOnGesture ? _handleTap : null,
+                      onVerticalDragEnd:
+                          widget.expandOnGesture ? _handleTap : null,
+                    ),
                   ),
                 ),
                 ExpandArrow(
