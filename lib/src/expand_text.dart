@@ -5,22 +5,47 @@ import 'expand_arrow.dart';
 /// Default animation duration
 const Duration _kExpand = Duration(milliseconds: 300);
 
-/// EXPAND TEXT WIDGET
 /// This widget is used to show parcial text, if the text is too big for the parent size.
 /// You can specify the [maxLenght] parameter. If the text is short enough,
 /// no 'expand arrow' widget will be shown.
 class ExpandText extends StatefulWidget {
-  final String minMessage, maxMessage;
+  /// Message used as a tooltip when the widget is minimized
+  final String minMessage;
+
+  /// Message used as a tooltip when the widget is maximazed
+  final String maxMessage;
+
+  /// Color of the arrow widget. Defaults to the caption text style color.
   final Color arrowColor;
+
+  /// Size of the arrow widget. Default is 30.
   final double arrowSize;
 
+  /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
+
+  /// Text that will be displayed
   final String text;
+
+  /// Maximun number of lines the widget shows when it's minimized. Default is 8.
   final int maxLength;
+
+  /// Corresponds to the style parameter of the text view
   final TextStyle style;
+
+  /// Corresponds to the aling parameter of the text view
   final TextAlign textAlign;
+
+  /// Corresponds to the overflow parameter of the text view. Default is 'fade'.
   final TextOverflow overflow;
+
+  /// Related to the width the widget should occupy.
+  /// If 'true' it will stretch out, using all the available horizontal space.
+  /// Otherwise the text widget will be centered inside its parent widget.
+  /// Default is false.
   final bool expandWidth;
+
+  /// Wheter the text view should expand/retract if the user drags on it. Default is 'true'.
   final bool expandOnGesture;
 
   const ExpandText(
@@ -45,31 +70,34 @@ class ExpandText extends StatefulWidget {
 
 class _ExpandTextState extends State<ExpandText>
     with TickerProviderStateMixin<ExpandText> {
-  /// Custom animations curves for both height & arrow controll.
+  /// Custom animation curve for arrow controll
   static final Animatable<double> _easeInTween =
       CurveTween(curve: Curves.easeInOutCubic);
+
+  /// Controlls the rotation of the arrow widget
   static final Animatable<double> _halfTween =
       Tween<double>(begin: 0.0, end: 0.5);
 
-  /// General animation controller.
+  /// General animation controller
   AnimationController _controller;
 
-  /// Animation for controlling the height of the widget.
+  /// Animations for arrow's rotation control
   Animation<double> _iconTurns;
 
+  /// Auxiliary variable to controll expand status
   bool _isExpanded = false;
 
   @override
   void initState() {
     super.initState();
 
-    /// Initializing the animation controller with the [duration] parameter.
+    // Initializing the animation controller with the [duration] parameter
     _controller = AnimationController(
       duration: widget.animationDuration,
       vsync: this,
     );
 
-    /// Initializing the animation, depending on the [_easeInTween] curve.
+    // Initializing the animation, depending on the [_easeInTween] curve
     _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
   }
 
@@ -100,7 +128,7 @@ class _ExpandTextState extends State<ExpandText>
     });
   }
 
-  /// Builds the widget itself. If the [_isExpanded] parameters is [true],
+  /// Builds the widget itself. If the [_isExpanded] parameter is 'true',
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChildren(BuildContext context, Widget child) {
@@ -154,7 +182,7 @@ class _ExpandTextState extends State<ExpandText>
   /// depending on [_isExpanded].
   /// If [overflow] is set to ellipsis, it must not return null,
   /// otherwise the entire app could explode :)
-  int _maxLines() {
+  int get _maxLines {
     if (_isExpanded) {
       return (widget.overflow == TextOverflow.ellipsis) ? 2 ^ 64 : null;
     } else {
@@ -172,7 +200,7 @@ class _ExpandTextState extends State<ExpandText>
         textAlign: widget.textAlign,
         overflow: widget.overflow,
         style: widget.style,
-        maxLines: _maxLines(),
+        maxLines: _maxLines,
       ),
     );
   }

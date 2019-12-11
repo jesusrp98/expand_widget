@@ -4,13 +4,18 @@ import 'package:flutter/widgets.dart';
 /// Default animation duration
 const Duration _kExpand = Duration(milliseconds: 300);
 
-/// SHOW CHILD WIDGET
 /// This widget unfolds a hidden widget to the user, called [child].
 /// The main difference with [ExpandChild] is that, once expanded,
 /// the user can't hide once again.
 class ShowChild extends StatefulWidget {
-  final Widget indicator, child;
+  /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
+
+  /// Widget that the user interacts with, in order to show the [child] widget
+  final Widget indicator;
+
+  /// This widget will be displayed if the user clicks the [indicator] widget
+  final Widget child;
 
   const ShowChild({
     Key key,
@@ -25,29 +30,30 @@ class ShowChild extends StatefulWidget {
 
 class _ShowChildState extends State<ShowChild>
     with SingleTickerProviderStateMixin {
-  /// Custom animations curves for height controll.
+  /// Custom animation curve for arrow controll
   static final Animatable<double> _easeInTween =
       CurveTween(curve: Curves.easeInOutCubic);
 
-  /// General animation controller.
+  /// General animation controller
   AnimationController _controller;
 
-  /// Animations for height control.
+  /// Animations for height control
   Animation<double> _heightFactor;
 
+  /// Auxiliary variable to controll expand status
   bool _isExpanded = false;
 
   @override
   void initState() {
     super.initState();
 
-    /// Initializing the animation controller with the [duration] parameter.
+    // Initializing the animation controller with the [duration] parameter
     _controller = AnimationController(
       duration: widget.animationDuration,
       vsync: this,
     );
 
-    /// Initializing both animations, depending on the [_easeInTween] curve.
+    // Initializing both animations, depending on the [_easeInTween] curve
     _heightFactor = _controller.drive(_easeInTween);
   }
 
@@ -57,7 +63,7 @@ class _ShowChildState extends State<ShowChild>
     super.dispose();
   }
 
-  /// Method called when the user clicks on the expand widget.
+  /// Method called when the user clicks on the expand widget
   void _handleTap() {
     setState(() {
       _isExpanded = true;
@@ -65,7 +71,7 @@ class _ShowChildState extends State<ShowChild>
     });
   }
 
-  /// Builds the widget itself. If the [_isExpanded] parameters is [true],
+  /// Builds the widget itself. If the [_isExpanded] parameter is 'true',
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChild(BuildContext context, Widget child) {
