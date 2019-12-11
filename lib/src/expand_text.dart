@@ -77,11 +77,24 @@ class _ExpandTextState extends State<ExpandText>
     super.dispose();
   }
 
-  /// Method called when the user clicks on the expand arrow.
+  /// Method called when the user clicks on the expand arrow,
+  /// clicks or drags on the child text view.
   void _handleTap([DragEndDetails dragDetails]) {
     setState(() {
-      _isExpanded = !_isExpanded;
-      _isExpanded ? _controller.forward() : _controller.reverse();
+      // If the user dragged the content
+      if (dragDetails != null) {
+        // If the drag finishes with some velocity
+        // If not, no text expansion will be performed
+        if (dragDetails.primaryVelocity != 0) {
+          _isExpanded = dragDetails.primaryVelocity > 0;
+          dragDetails.primaryVelocity > 0
+              ? _controller.forward()
+              : _controller.reverse();
+        }
+      } else {
+        _isExpanded = !_isExpanded;
+        _isExpanded ? _controller.forward() : _controller.reverse();
+      }
     });
   }
 
@@ -101,7 +114,9 @@ class _ExpandTextState extends State<ExpandText>
 
       return textPainter.didExceedMaxLines
           ? Column(
-              crossAxisAlignment: widget.expandWidth ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
+              crossAxisAlignment: widget.expandWidth
+                  ? CrossAxisAlignment.stretch
+                  : CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 AnimatedSize(
