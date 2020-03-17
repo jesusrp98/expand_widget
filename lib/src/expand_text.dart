@@ -92,12 +92,21 @@ class _ExpandTextState extends State<ExpandText>
   /// this instance of the object.
   Widget _buildChildren(BuildContext context, Widget child) {
     return LayoutBuilder(builder: (context, size) {
+
+    final Text textWidget = child as Text;
+    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+    TextStyle effectiveTextStyle = textWidget.style;
+    if (textWidget.style == null || textWidget.style.inherit)
+      effectiveTextStyle = defaultTextStyle.style.merge(textWidget.style);
+    if (MediaQuery.boldTextOverride(context))
+      effectiveTextStyle = effectiveTextStyle.merge(const TextStyle(fontWeight: FontWeight.bold));
+
       final TextPainter textPainter = TextPainter(
         text: TextSpan(
           text: widget.text,
-          style: widget.style,
+          style: effectiveTextStyle,
         ),
-        textDirection: TextDirection.rtl,
+        textDirection: TextDirection.ltr,
         maxLines: widget.maxLength,
       )..layout(maxWidth: size.maxWidth);
 
