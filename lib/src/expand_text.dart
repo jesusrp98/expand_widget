@@ -23,6 +23,10 @@ class ExpandText extends StatefulWidget {
   /// Size of the arrow widget. Default is 30.
   final double arrowSize;
 
+  /// Defines padding value for the arrow widget.
+  /// Default is [EdgeInsets.all(4)].
+  final EdgeInsets arrowPadding;
+
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
@@ -57,6 +61,7 @@ class ExpandText extends StatefulWidget {
     this.maxMessage,
     this.arrowColor,
     this.arrowSize = 30,
+    this.arrowPadding,
     this.animationDuration = _kExpand,
     this.maxLength = 8,
     this.style,
