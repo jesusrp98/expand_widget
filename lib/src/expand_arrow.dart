@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 /// Most widget parameters, such as [size] & [color] are customizable.
 class ExpandArrow extends StatelessWidget {
   /// Message used as a tooltip when the widget is minimized.
+  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
   final String minMessage;
 
   /// Message used as a tooltip when the widget is maximazed.
+  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String maxMessage;
 
   /// Controlls the arrow fluid(TM) animation.
@@ -38,10 +40,15 @@ class ExpandArrow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String minMessageText =
+        minMessage ?? MaterialLocalizations.of(context).collapsedIconTapHint;
+    final String maxMessageText =
+        minMessage ?? MaterialLocalizations.of(context).expandedIconTapHint;
+
     return Padding(
       padding: padding ?? EdgeInsets.all(4),
       child: Tooltip(
-        message: animation.value == 0 ? minMessage : maxMessage,
+        message: animation.value == 0 ? minMessageText : maxMessageText,
         child: InkResponse(
           child: RotationTransition(
             turns: animation,

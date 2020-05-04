@@ -9,10 +9,12 @@ const Duration _kExpand = Duration(milliseconds: 300);
 /// This widget unfolds a hidden widget to the user, called [child].
 /// This action is performed when the user clicks the 'expand' arrow.
 class ExpandChild extends StatefulWidget {
-  /// Message used as a tooltip when the widget is minimized
+  /// Message used as a tooltip when the widget is minimized.
+  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
   final String minMessage;
 
-  /// Message used as a tooltip when the widget is maximazed
+  /// Message used as a tooltip when the widget is maximazed.
+  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String maxMessage;
 
   /// Color of the arrow widget. Defaults to the caption text style color.
@@ -24,13 +26,13 @@ class ExpandChild extends StatefulWidget {
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
-  /// This widget will be displayed if the user clicks the 'expand' arrow
+  /// This widget will be displayed if the user clicks the 'expand' arrow.
   final Widget child;
 
   const ExpandChild({
     Key key,
-    this.minMessage = 'Show more',
-    this.maxMessage = 'Show less',
+    this.minMessage,
+    this.maxMessage,
     this.arrowColor,
     this.arrowSize = 30,
     this.animationDuration = _kExpand,
@@ -43,24 +45,24 @@ class ExpandChild extends StatefulWidget {
 
 class _ExpandChildState extends State<ExpandChild>
     with SingleTickerProviderStateMixin {
-  /// Custom animation curve for arrow controll
+  /// Custom animation curve for arrow controll.
   static final Animatable<double> _easeInTween =
       CurveTween(curve: Curves.easeInOutCubic);
 
-  /// Controlls the rotation of the arrow widget
+  /// Controlls the rotation of the arrow widget.
   static final Animatable<double> _halfTween =
       Tween<double>(begin: 0.0, end: 0.5);
 
-  /// General animation controller
+  /// General animation controller.
   AnimationController _controller;
 
-  /// Animations for height control
+  /// Animations for height control.
   Animation<double> _heightFactor;
 
-  /// Animations for arrow's rotation control
+  /// Animations for arrow's rotation control.
   Animation<double> _iconTurns;
 
-  /// Auxiliary variable to controll expand status
+  /// Auxiliary variable to controll expand status.
   bool _isExpanded = false;
 
   @override
