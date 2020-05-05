@@ -31,10 +31,10 @@ class ExpandText extends StatefulWidget {
   final Duration animationDuration;
 
   /// Text that will be displayed.
-  final String text;
+  final String data;
 
   /// Maximun number of lines the widget shows when it's minimized. Default is 8.
-  final int maxLength;
+  final int maxLines;
 
   /// Corresponds to the style parameter of the text view.
   final TextStyle style;
@@ -55,7 +55,7 @@ class ExpandText extends StatefulWidget {
   final bool expandOnGesture;
 
   const ExpandText(
-    this.text, {
+    this.data, {
     Key key,
     this.minMessage,
     this.maxMessage,
@@ -63,13 +63,17 @@ class ExpandText extends StatefulWidget {
     this.arrowSize = 30,
     this.arrowPadding,
     this.animationDuration = _kExpand,
-    this.maxLength = 8,
+    this.maxLines = 8,
     this.style,
     this.textAlign,
     this.overflow = TextOverflow.fade,
     this.expandWidth = false,
     this.expandOnGesture = true,
-  }) : super(key: key);
+  })  : assert(
+          data != null,
+          'A non-null String must be provided to a ExpandText widget.',
+        ),
+        super(key: key);
 
   @override
   _ExpandTextState createState() => _ExpandTextState();
@@ -151,11 +155,11 @@ class _ExpandTextState extends State<ExpandText>
 
       final TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: widget.text,
+          text: widget.data,
           style: effectiveTextStyle,
         ),
         textDirection: TextDirection.ltr,
-        maxLines: widget.maxLength,
+        maxLines: widget.maxLines,
       )..layout(maxWidth: size.maxWidth);
 
       return textPainter.didExceedMaxLines
@@ -202,7 +206,7 @@ class _ExpandTextState extends State<ExpandText>
     if (_isExpanded) {
       return (widget.overflow == TextOverflow.ellipsis) ? 2 ^ 64 : null;
     } else {
-      return widget.maxLength;
+      return widget.maxLines;
     }
   }
 
@@ -212,7 +216,7 @@ class _ExpandTextState extends State<ExpandText>
       animation: _controller.view,
       builder: _buildChildren,
       child: Text(
-        widget.text,
+        widget.data,
         textAlign: widget.textAlign,
         overflow: widget.overflow,
         style: widget.style,
