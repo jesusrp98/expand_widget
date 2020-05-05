@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// Default animation duration
 const Duration _kExpand = Duration(milliseconds: 300);
@@ -7,6 +6,7 @@ const Duration _kExpand = Duration(milliseconds: 300);
 /// This widget unfolds a hidden widget to the user, called [child].
 /// The main difference with [ExpandChild] is that, once expanded,
 /// the user can't hide once again.
+@deprecated
 class ShowChild extends StatefulWidget {
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
