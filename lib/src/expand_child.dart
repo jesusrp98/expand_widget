@@ -33,7 +33,7 @@ class ExpandChild extends StatefulWidget {
   final TextStyle hintTextStyle;
 
   /// Defines arrow rendering style.
-  final bool displayHintText;
+  final ExpandArrowStyle expandArrowStyle;
 
   /// This widget will be displayed if the user clicks the 'expand' arrow.
   final Widget child;
@@ -47,7 +47,7 @@ class ExpandChild extends StatefulWidget {
     this.arrowPadding,
     this.animationDuration = _kExpand,
     this.hintTextStyle,
-    this.displayHintText,
+    this.expandArrowStyle = ExpandArrowStyle.icon,
     @required this.child,
   }) : super(key: key);
 
@@ -123,12 +123,12 @@ class _ExpandChildState extends State<ExpandChild>
         ExpandArrow(
           collapsedHint: widget.collapsedHint,
           expandedHint: widget.expandedHint,
-          color: widget.arrowColor,
-          size: widget.arrowSize,
+          arrowColor: widget.arrowColor,
+          arrowSize: widget.arrowSize,
           animation: _iconTurns,
           onTap: _handleTap,
           hintTextStyle: widget.hintTextStyle,
-          displayHintText: widget.displayHintText,
+          expandArrowStyle: widget.expandArrowStyle,
         ),
       ],
     );

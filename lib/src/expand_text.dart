@@ -58,7 +58,7 @@ class ExpandText extends StatefulWidget {
   final TextStyle hintTextStyle;
 
   /// Defines arrow rendering style.
-  final bool displayHintText;
+  final ExpandArrowStyle expandArrowStyle;
 
   const ExpandText(
     this.data, {
@@ -76,7 +76,7 @@ class ExpandText extends StatefulWidget {
     this.expandWidth = false,
     this.expandOnGesture = true,
     this.hintTextStyle,
-    this.displayHintText,
+    this.expandArrowStyle = ExpandArrowStyle.icon,
   })  : assert(
           data != null,
           'A non-null String must be provided to a ExpandText widget.',
@@ -195,12 +195,12 @@ class _ExpandTextState extends State<ExpandText>
                 ExpandArrow(
                   collapsedHint: widget.collapsedHint,
                   expandedHint: widget.expandedHint,
-                  color: widget.arrowColor,
-                  size: widget.arrowSize,
+                  arrowColor: widget.arrowColor,
+                  arrowSize: widget.arrowSize,
                   animation: _iconTurns,
                   onTap: _handleTap,
                   hintTextStyle: widget.hintTextStyle,
-                  displayHintText: widget.displayHintText,
+                  expandArrowStyle: widget.expandArrowStyle,
                 ),
               ],
             )
