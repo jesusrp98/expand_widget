@@ -11,11 +11,11 @@ const Duration _kExpand = Duration(milliseconds: 300);
 class ExpandText extends StatefulWidget {
   /// Message used as a tooltip when the widget is minimized.
   /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
-  final String minMessage;
+  final String collapsedHint;
 
   /// Message used as a tooltip when the widget is maximazed.
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
-  final String maxMessage;
+  final String expandedHint;
 
   /// Color of the arrow widget. Defaults to the caption text style color.
   final Color arrowColor;
@@ -54,11 +54,17 @@ class ExpandText extends StatefulWidget {
   /// Wheter the text view should expand/retract if the user drags on it. Default is 'true'.
   final bool expandOnGesture;
 
+  /// Style of the displayed message.
+  final TextStyle hintTextStyle;
+
+  /// Defines arrow rendering style.
+  final bool displayHintText;
+
   const ExpandText(
     this.data, {
     Key key,
-    this.minMessage,
-    this.maxMessage,
+    this.collapsedHint,
+    this.expandedHint,
     this.arrowColor,
     this.arrowSize = 30,
     this.arrowPadding,
@@ -69,6 +75,8 @@ class ExpandText extends StatefulWidget {
     this.overflow = TextOverflow.fade,
     this.expandWidth = false,
     this.expandOnGesture = true,
+    this.hintTextStyle,
+    this.displayHintText,
   })  : assert(
           data != null,
           'A non-null String must be provided to a ExpandText widget.',
@@ -185,12 +193,14 @@ class _ExpandTextState extends State<ExpandText>
                   ),
                 ),
                 ExpandArrow(
-                  minMessage: widget.minMessage,
-                  maxMessage: widget.maxMessage,
+                  collapsedHint: widget.collapsedHint,
+                  expandedHint: widget.expandedHint,
                   color: widget.arrowColor,
                   size: widget.arrowSize,
                   animation: _iconTurns,
                   onTap: _handleTap,
+                  hintTextStyle: widget.hintTextStyle,
+                  displayHintText: widget.displayHintText,
                 ),
               ],
             )

@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 class ExpandArrow extends StatelessWidget {
   /// Message used as a tooltip when the widget is minimized.
   /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
-  final String minMessage;
+  final String collapsedHint;
 
   /// Message used as a tooltip when the widget is maximazed.
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
-  final String maxMessage;
+  final String expandedHint;
 
   /// Controlls the arrow fluid(TM) animation.
   final Animation<double> animation;
@@ -27,39 +27,65 @@ class ExpandArrow extends StatelessWidget {
   /// Defines arrow's size.
   final double size;
 
+  /// Style of the displayed message.
+  final TextStyle hintTextStyle;
+
+  /// Defines arrow rendering style.
+  final bool displayHintText;
+
   const ExpandArrow({
     Key key,
-    this.minMessage,
-    this.maxMessage,
+    this.collapsedHint,
+    this.expandedHint,
     @required this.animation,
     this.padding,
     @required this.onTap,
     this.color,
     this.size,
+    this.hintTextStyle,
+    this.displayHintText,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String minMessageText =
-        minMessage ?? MaterialLocalizations.of(context).collapsedIconTapHint;
-    final String maxMessageText =
-        minMessage ?? MaterialLocalizations.of(context).expandedIconTapHint;
+    final tooltipMessage = animation.value == 0
+        ? collapsedHint ??
+            MaterialLocalizations.of(context).collapsedIconTapHint
+        : expandedHint ?? MaterialLocalizations.of(context).expandedIconTapHint;
+
+    final animatedArrow = RotationTransition(
+      turns: animation,
+      child: Icon(
+        Icons.expand_more,
+        color: color ?? Theme.of(context).textTheme.caption.color,
+        size: size,
+      ),
+    );
 
     return Padding(
       padding: padding ?? EdgeInsets.all(4),
       child: Tooltip(
-        message: animation.value == 0 ? minMessageText : maxMessageText,
-        child: InkResponse(
-          child: RotationTransition(
-            turns: animation,
-            child: Icon(
-              Icons.expand_more,
-              color: color ?? Theme.of(context).textTheme.caption.color,
-              size: size,
-            ),
-          ),
-          onTap: onTap,
-        ),
+        message: tooltipMessage,
+        child: displayHintText == true
+            ? InkWell(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    animatedArrow,
+                    const SizedBox(width: 8.0),
+                    Text(
+                      tooltipMessage,
+                      style: hintTextStyle,
+                    ),
+                    const SizedBox(width: 8.0),
+                  ],
+                ),
+                onTap: onTap,
+              )
+            : InkResponse(
+                child: animatedArrow,
+                onTap: onTap,
+              ),
       ),
     );
   }

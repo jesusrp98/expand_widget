@@ -11,11 +11,11 @@ const Duration _kExpand = Duration(milliseconds: 300);
 class ExpandChild extends StatefulWidget {
   /// Message used as a tooltip when the widget is minimized.
   /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
-  final String minMessage;
+  final String collapsedHint;
 
   /// Message used as a tooltip when the widget is maximazed.
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
-  final String maxMessage;
+  final String expandedHint;
 
   /// Color of the arrow widget. Defaults to the caption text style color.
   final Color arrowColor;
@@ -30,17 +30,25 @@ class ExpandChild extends StatefulWidget {
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
+  /// Style of the displayed message.
+  final TextStyle hintTextStyle;
+
+  /// Defines arrow rendering style.
+  final bool displayHintText;
+
   /// This widget will be displayed if the user clicks the 'expand' arrow.
   final Widget child;
 
   const ExpandChild({
     Key key,
-    this.minMessage,
-    this.maxMessage,
+    this.collapsedHint,
+    this.expandedHint,
     this.arrowColor,
     this.arrowSize = 30,
     this.arrowPadding,
     this.animationDuration = _kExpand,
+    this.hintTextStyle,
+    this.displayHintText,
     @required this.child,
   }) : super(key: key);
 
@@ -114,12 +122,14 @@ class _ExpandChildState extends State<ExpandChild>
           ),
         ),
         ExpandArrow(
-          minMessage: widget.minMessage,
-          maxMessage: widget.maxMessage,
+          collapsedHint: widget.collapsedHint,
+          expandedHint: widget.expandedHint,
           color: widget.arrowColor,
           size: widget.arrowSize,
           animation: _iconTurns,
           onTap: _handleTap,
+          hintTextStyle: widget.hintTextStyle,
+          displayHintText: widget.displayHintText,
         ),
       ],
     );
