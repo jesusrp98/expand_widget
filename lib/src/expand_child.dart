@@ -16,24 +16,30 @@ class ExpandChild extends StatefulWidget {
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String expandedHint;
 
+  /// Defines padding value.
+  ///
+  /// Default value if this widget's icon-only: [EdgeInsets.all(4)].
+  /// If text is shown: [EdgeInsets.all(8)].
+  final EdgeInsets arrowPadding;
+
   /// Color of the arrow widget. Defaults to the caption text style color.
   final Color arrowColor;
 
-  /// Size of the arrow widget. Default is 30.
+  /// Size of the arrow widget. Default is [30].
   final double arrowSize;
 
-  /// Defines padding value for the arrow widget.
-  /// Default is [EdgeInsets.all(4)].
-  final EdgeInsets arrowPadding;
-
-  /// How long the expanding animation takes. Default is 300ms.
-  final Duration animationDuration;
+  /// Icon that will be used instead of an arrow.
+  /// Default is [Icons.expand_more].
+  final IconData icon;
 
   /// Style of the displayed message.
   final TextStyle hintTextStyle;
 
   /// Defines arrow rendering style.
   final ExpandArrowStyle expandArrowStyle;
+
+  /// How long the expanding animation takes. Default is 300ms.
+  final Duration animationDuration;
 
   /// This widget will be displayed if the user clicks the 'expand' arrow.
   final Widget child;
@@ -42,12 +48,13 @@ class ExpandChild extends StatefulWidget {
     Key key,
     this.collapsedHint,
     this.expandedHint,
+    this.arrowPadding,
     this.arrowColor,
     this.arrowSize = 30,
-    this.arrowPadding,
-    this.animationDuration = _kExpand,
+    this.icon,
     this.hintTextStyle,
     this.expandArrowStyle = ExpandArrowStyle.icon,
+    this.animationDuration = _kExpand,
     @required this.child,
   }) : super(key: key);
 
@@ -123,10 +130,12 @@ class _ExpandChildState extends State<ExpandChild>
         ExpandArrow(
           collapsedHint: widget.collapsedHint,
           expandedHint: widget.expandedHint,
+          animation: _iconTurns,
+          padding: widget.arrowPadding,
+          onTap: _handleTap,
           arrowColor: widget.arrowColor,
           arrowSize: widget.arrowSize,
-          animation: _iconTurns,
-          onTap: _handleTap,
+          icon: widget.icon,
           hintTextStyle: widget.hintTextStyle,
           expandArrowStyle: widget.expandArrowStyle,
         ),

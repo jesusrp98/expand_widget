@@ -6,7 +6,7 @@ import 'expand_arrow.dart';
 const Duration _kExpand = Duration(milliseconds: 300);
 
 /// This widget is used to show parcial text, if the text is too big for the parent size.
-/// You can specify the [maxLenght] parameter. If the text is short enough,
+/// You can specify the [maxLines] parameter. If the text is short enough,
 /// no 'expand arrow' widget will be shown.
 class ExpandText extends StatefulWidget {
   /// Message used as a tooltip when the widget is minimized.
@@ -17,15 +17,27 @@ class ExpandText extends StatefulWidget {
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String expandedHint;
 
+  /// Defines padding value.
+  ///
+  /// Default value if this widget's icon-only: [EdgeInsets.all(4)].
+  /// If text is shown: [EdgeInsets.all(8)].
+  final EdgeInsets arrowPadding;
+
   /// Color of the arrow widget. Defaults to the caption text style color.
   final Color arrowColor;
 
-  /// Size of the arrow widget. Default is 30.
+  /// Size of the arrow widget. Default is [30].
   final double arrowSize;
 
-  /// Defines padding value for the arrow widget.
-  /// Default is [EdgeInsets.all(4)].
-  final EdgeInsets arrowPadding;
+  /// Icon that will be used instead of an arrow.
+  /// Default is [Icons.expand_more].
+  final IconData icon;
+
+  /// Style of the displayed message.
+  final TextStyle hintTextStyle;
+
+  /// Defines arrow rendering style.
+  final ExpandArrowStyle expandArrowStyle;
 
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
@@ -54,20 +66,17 @@ class ExpandText extends StatefulWidget {
   /// Wheter the text view should expand/retract if the user drags on it. Default is 'true'.
   final bool expandOnGesture;
 
-  /// Style of the displayed message.
-  final TextStyle hintTextStyle;
-
-  /// Defines arrow rendering style.
-  final ExpandArrowStyle expandArrowStyle;
-
   const ExpandText(
     this.data, {
     Key key,
     this.collapsedHint,
     this.expandedHint,
+    this.arrowPadding,
     this.arrowColor,
     this.arrowSize = 30,
-    this.arrowPadding,
+    this.icon,
+    this.hintTextStyle,
+    this.expandArrowStyle = ExpandArrowStyle.icon,
     this.animationDuration = _kExpand,
     this.maxLines = 8,
     this.style,
@@ -75,8 +84,6 @@ class ExpandText extends StatefulWidget {
     this.overflow = TextOverflow.fade,
     this.expandWidth = false,
     this.expandOnGesture = true,
-    this.hintTextStyle,
-    this.expandArrowStyle = ExpandArrowStyle.icon,
   })  : assert(
           data != null,
           'A non-null String must be provided to a ExpandText widget.',
@@ -195,10 +202,12 @@ class _ExpandTextState extends State<ExpandText>
                 ExpandArrow(
                   collapsedHint: widget.collapsedHint,
                   expandedHint: widget.expandedHint,
+                  animation: _iconTurns,
+                  padding: widget.arrowPadding,
+                  onTap: _handleTap,
                   arrowColor: widget.arrowColor,
                   arrowSize: widget.arrowSize,
-                  animation: _iconTurns,
-                  onTap: _handleTap,
+                  icon: widget.icon,
                   hintTextStyle: widget.hintTextStyle,
                   expandArrowStyle: widget.expandArrowStyle,
                 ),
