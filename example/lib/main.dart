@@ -90,7 +90,7 @@ Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget 
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Show Child',
+                    'Custom widget',
                     style: Theme.of(context).textTheme.title,
                   ),
                   SizedBox(height: 8),
@@ -98,16 +98,13 @@ Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget 
                     child: Text('Button0'),
                     onPressed: () => print('Pressed button0'),
                   ),
-                  ShowChild(
-                    indicator: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        "SHOW MORE",
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.caption.color,
-                        ),
-                      ),
-                    ),
+                  ExpandChild(
+                    hideArrowOnExpanded: true,
+                    arrowColor: Colors.red,
+                    arrowSize: 40,
+                    expandArrowStyle: ExpandArrowStyle.both,
+                    icon: Icons.cake,
+                    hintTextStyle: TextStyle(fontSize: 16),
                     child: Column(
                       children: <Widget>[
                         OutlineButton(
