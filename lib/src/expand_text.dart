@@ -66,6 +66,9 @@ class ExpandText extends StatefulWidget {
   /// Wheter the text view should expand/retract if the user drags on it. Default is 'true'.
   final bool expandOnGesture;
 
+  /// Ability to hide arrow from display when content is expanded.
+  final bool hideArrowOnExpanded;
+
   const ExpandText(
     this.data, {
     Key key,
@@ -84,10 +87,14 @@ class ExpandText extends StatefulWidget {
     this.overflow = TextOverflow.fade,
     this.expandWidth = false,
     this.expandOnGesture = true,
+    this.hideArrowOnExpanded = false,
   })  : assert(
           data != null,
           'A non-null String must be provided to a ExpandText widget.',
         ),
+        assert(expandWidth != null),
+        assert(expandOnGesture != null),
+        assert(hideArrowOnExpanded != null),
         super(key: key);
 
   @override
@@ -107,6 +114,9 @@ class _ExpandTextState extends State<ExpandText>
   /// General animation controller.
   AnimationController _controller;
 
+  /// Animations for height control.
+  Animation<double> _heightFactor;
+
   /// Animations for arrow's rotation control.
   Animation<double> _iconTurns;
 
@@ -124,6 +134,7 @@ class _ExpandTextState extends State<ExpandText>
     );
 
     // Initializing the animation, depending on the [_easeInTween] curve
+    _heightFactor = _controller.drive(_easeInTween);
     _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
   }
 
@@ -199,17 +210,28 @@ class _ExpandTextState extends State<ExpandText>
                     ),
                   ),
                 ),
-                ExpandArrow(
-                  collapsedHint: widget.collapsedHint,
-                  expandedHint: widget.expandedHint,
-                  animation: _iconTurns,
-                  padding: widget.arrowPadding,
-                  onTap: _handleTap,
-                  arrowColor: widget.arrowColor,
-                  arrowSize: widget.arrowSize,
-                  icon: widget.icon,
-                  hintTextStyle: widget.hintTextStyle,
-                  expandArrowStyle: widget.expandArrowStyle,
+                ClipRect(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    heightFactor: widget.hideArrowOnExpanded
+                        ? 1 - _heightFactor.value
+                        : 1,
+                    child: InkWell(
+                      onTap: _handleTap,
+                      child: ExpandArrow(
+                        collapsedHint: widget.collapsedHint,
+                        expandedHint: widget.expandedHint,
+                        animation: _iconTurns,
+                        padding: widget.arrowPadding,
+                        onTap: _handleTap,
+                        arrowColor: widget.arrowColor,
+                        arrowSize: widget.arrowSize,
+                        icon: widget.icon,
+                        hintTextStyle: widget.hintTextStyle,
+                        expandArrowStyle: widget.expandArrowStyle,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             )

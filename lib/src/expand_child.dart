@@ -44,6 +44,9 @@ class ExpandChild extends StatefulWidget {
   /// This widget will be displayed if the user clicks the 'expand' arrow.
   final Widget child;
 
+  /// Ability to hide arrow from display when content is expanded.
+  final bool hideArrowOnExpanded;
+
   const ExpandChild({
     Key key,
     this.collapsedHint,
@@ -56,7 +59,9 @@ class ExpandChild extends StatefulWidget {
     this.expandArrowStyle = ExpandArrowStyle.icon,
     this.animationDuration = _kExpand,
     @required this.child,
-  }) : super(key: key);
+    this.hideArrowOnExpanded = false,
+  })  : assert(hideArrowOnExpanded != null),
+        super(key: key);
 
   @override
   _ExpandChildState createState() => _ExpandChildState();
@@ -127,17 +132,27 @@ class _ExpandChildState extends State<ExpandChild>
             child: child,
           ),
         ),
-        ExpandArrow(
-          collapsedHint: widget.collapsedHint,
-          expandedHint: widget.expandedHint,
-          animation: _iconTurns,
-          padding: widget.arrowPadding,
-          onTap: _handleTap,
-          arrowColor: widget.arrowColor,
-          arrowSize: widget.arrowSize,
-          icon: widget.icon,
-          hintTextStyle: widget.hintTextStyle,
-          expandArrowStyle: widget.expandArrowStyle,
+        ClipRect(
+          child: Align(
+            alignment: Alignment.topCenter,
+            heightFactor:
+                widget.hideArrowOnExpanded ? 1 - _heightFactor.value : 1,
+            child: InkWell(
+              onTap: _handleTap,
+              child: ExpandArrow(
+                collapsedHint: widget.collapsedHint,
+                expandedHint: widget.expandedHint,
+                animation: _iconTurns,
+                padding: widget.arrowPadding,
+                onTap: _handleTap,
+                arrowColor: widget.arrowColor,
+                arrowSize: widget.arrowSize,
+                icon: widget.icon,
+                hintTextStyle: widget.hintTextStyle,
+                expandArrowStyle: widget.expandArrowStyle,
+              ),
+            ),
+          ),
         ),
       ],
     );
