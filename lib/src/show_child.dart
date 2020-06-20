@@ -28,6 +28,7 @@ class ShowChild extends StatefulWidget {
   _ShowChildState createState() => _ShowChildState();
 }
 
+@deprecated
 class _ShowChildState extends State<ShowChild>
     with SingleTickerProviderStateMixin {
   /// Custom animation curve for arrow controll.
