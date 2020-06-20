@@ -104,12 +104,10 @@ class ExpandText extends StatefulWidget {
 class _ExpandTextState extends State<ExpandText>
     with TickerProviderStateMixin<ExpandText> {
   /// Custom animation curve for arrow controll.
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeInOutCubic);
+  static final _easeInCurve = CurveTween(curve: Curves.easeInOutCubic);
 
   /// Controlls the rotation of the arrow widget.
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
+  static final _halfTurn = Tween<double>(begin: 0.0, end: 0.5);
 
   /// General animation controller.
   AnimationController _controller;
@@ -133,9 +131,9 @@ class _ExpandTextState extends State<ExpandText>
       vsync: this,
     );
 
-    // Initializing the animation, depending on the [_easeInTween] curve
-    _heightFactor = _controller.drive(_easeInTween);
-    _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
+    // Initializing the animation, depending on the [_easeInCurve] curve
+    _heightFactor = _controller.drive(_easeInCurve);
+    _iconTurns = _controller.drive(_halfTurn.chain(_easeInCurve));
   }
 
   @override

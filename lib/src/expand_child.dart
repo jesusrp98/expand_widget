@@ -70,12 +70,10 @@ class ExpandChild extends StatefulWidget {
 class _ExpandChildState extends State<ExpandChild>
     with SingleTickerProviderStateMixin {
   /// Custom animation curve for arrow controll.
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeInOutCubic);
+  static final _easeInCurve = CurveTween(curve: Curves.easeInOutCubic);
 
   /// Controlls the rotation of the arrow widget.
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
+  static final _halfTurn = Tween<double>(begin: 0.0, end: 0.5);
 
   /// General animation controller.
   AnimationController _controller;
@@ -99,9 +97,9 @@ class _ExpandChildState extends State<ExpandChild>
       vsync: this,
     );
 
-    // Initializing both animations, depending on the [_easeInTween] curve
-    _heightFactor = _controller.drive(_easeInTween);
-    _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
+    // Initializing both animations, depending on the [_easeInCurve] curve
+    _heightFactor = _controller.drive(_easeInCurve);
+    _iconTurns = _controller.drive(_halfTurn.chain(_easeInCurve));
   }
 
   @override

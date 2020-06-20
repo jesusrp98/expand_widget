@@ -59,13 +59,14 @@ class ExpandArrow extends StatelessWidget {
     this.expandedHint,
     @required this.animation,
     this.padding,
-    @required this.onTap,
+    this.onTap,
     this.arrowColor,
     this.arrowSize,
     this.icon,
     this.hintTextStyle,
     this.expandArrowStyle,
-  }) : super(key: key);
+  })  : assert(animation != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
