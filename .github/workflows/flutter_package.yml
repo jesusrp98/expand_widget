@@ -1,0 +1,34 @@
+name: Flutter Package CI
+
+on: push
+
+jobs:
+  flutter-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Gettings commit
+        uses: actions/checkout@v1
+
+      - name: Setting up Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyzing files
+        run: flutter analyze
+
+      - name: Analyzing package
+        run: flutter pub publish --dry-run
+
+      - name: Runing tests
+        run: flutter test --coverage
+
+      - name: Adding coverage to Codecov
+        uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{secrets.CODECOV_KEY}}
+          file: ./coverage/lcov.info
