@@ -33,14 +33,11 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Expand Text',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6
                   ),
                   SizedBox(height: 8),
                   ExpandText(
-                    '''
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit risus pulvinar, hendrerit nisi quis, vehicula ante. Morbi ut diam elit.
-Praesent non justo sodales, auctor lacus id, congue massa. Duis ac odio dui. Sed sed egestas metus. Donec hendrerit velit magna. Vivamus elementum, nulla ac tempor euismod, erat nunc mollis diam, nec consequat nisl ex eu tellus.
-Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget nibh tempor lacus aliquam rutrum.''',
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit risus pulvinar, hendrerit nisi quis, vehicula ante. Morbi ut diam elit. Praesent non justo sodales, auctor lacus id, congue massa. Duis ac odio dui. Sed sed egestas metus. Donec hendrerit velit magna. Vivamus elementum, nulla ac tempor euismod, erat nunc mollis diam, nec consequat nisl ex eu tellus. Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget nibh tempor lacus aliquam rutrum.',
                     textAlign: TextAlign.justify,
                   ),
                 ],
@@ -55,7 +52,7 @@ Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget 
                 children: <Widget>[
                   Text(
                     'Expand Child',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 8),
                   OutlineButton(
@@ -90,24 +87,21 @@ Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget 
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Show Child',
-                    style: Theme.of(context).textTheme.title,
+                    'Custom widget',
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 8),
                   OutlineButton(
                     child: Text('Button0'),
                     onPressed: () => print('Pressed button0'),
                   ),
-                  ShowChild(
-                    indicator: Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Text(
-                        "SHOW MORE",
-                        style: TextStyle(
-                          color: Theme.of(context).textTheme.caption.color,
-                        ),
-                      ),
-                    ),
+                  ExpandChild(
+                    hideArrowOnExpanded: true,
+                    arrowColor: Colors.red,
+                    arrowSize: 40,
+                    expandArrowStyle: ExpandArrowStyle.both,
+                    icon: Icons.cake,
+                    hintTextStyle: TextStyle(fontSize: 16),
                     child: Column(
                       children: <Widget>[
                         OutlineButton(

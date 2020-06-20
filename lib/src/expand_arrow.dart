@@ -1,64 +1,122 @@
 import 'package:flutter/material.dart';
 
+/// Render mode selection of the [ExpandArrow] widget.
+enum ExpandArrowStyle {
+  /// Only display an icon, tipically a [Icons.expand_more] icon.
+  icon,
+
+  /// Display just the text. It will be dependant on the widget state.
+  text,
+
+  /// Display both icon & text at the same tame, using a [Row] widget.
+  both,
+}
+
 /// This widget is used in both [ExpandChild] & [ExpandText] widgets to show
 /// the hidden information to the user. It posses an [animation] parameter.
-/// Most widget parameters, such as [size] & [color] are customizable.
-class ExpandArrow extends StatefulWidget {
-  /// Message used as a tooltip when the widget is minimized
-  final String minMessage;
+/// Most widget parameters are customizable.
+class ExpandArrow extends StatelessWidget {
+  /// String used as a tooltip when the widget is minimized.
+  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
+  final String collapsedHint;
 
-  /// Message used as a tooltip when the widget is maximazed
-  final String maxMessage;
+  /// String used as a tooltip when the widget is maximazed.
+  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
+  final String expandedHint;
 
-  /// Controlls the arrow fluid(TM) animation
+  /// Controlls the arrow's fluid(TM) animation for
+  /// the arrow's rotation.
   final Animation<double> animation;
 
-  /// Callback to controll what happeds when the arrow is clicked
-  final Function onTap;
+  /// Defines padding value.
+  ///
+  /// Default value if this widget's icon-only: [EdgeInsets.all(4)].
+  /// If text is shown: [EdgeInsets.all(8)].
+  final EdgeInsets padding;
 
-  /// Defines arrow's color
-  final Color color;
+  /// Callback to controll what happeds when the arrow is clicked.
+  final void Function() onTap;
 
-  /// Defines arrow's size
-  final double size;
+  /// Defines arrow's color.
+  final Color arrowColor;
+
+  /// Defines arrow's size. Default is [30].
+  final double arrowSize;
+
+  /// Icon that will be used instead of an arrow.
+  /// Default is [Icons.expand_more].
+  final IconData icon;
+
+  /// Style of the displayed message.
+  final TextStyle hintTextStyle;
+
+  ///  Defines arrow rendering style. Default is [ExpandArrowStyle.icon].
+  final ExpandArrowStyle expandArrowStyle;
 
   const ExpandArrow({
     Key key,
-    this.minMessage,
-    this.maxMessage,
+    this.collapsedHint,
+    this.expandedHint,
     @required this.animation,
-    @required this.onTap,
-    this.color,
-    this.size,
-  }) : super(key: key);
+    this.padding,
+    this.onTap,
+    this.arrowColor,
+    this.arrowSize,
+    this.icon,
+    this.hintTextStyle,
+    this.expandArrowStyle,
+  })  : assert(animation != null),
+        super(key: key);
 
-  @override
-  _ExpandArrowState createState() => _ExpandArrowState();
-}
-
-class _ExpandArrowState extends State<ExpandArrow> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(4),
-      child: Tooltip(
-        message: message,
-        child: InkResponse(
-          child: RotationTransition(
-            turns: widget.animation,
-            child: Icon(
-              Icons.expand_more,
-              color: widget.color ?? Theme.of(context).textTheme.caption.color,
-              size: widget.size,
-            ),
+    final tooltipMessage = animation.value < 0.25
+        ? collapsedHint ??
+            MaterialLocalizations.of(context).collapsedIconTapHint
+        : expandedHint ?? MaterialLocalizations.of(context).expandedIconTapHint;
+
+    final isNotIcon = expandArrowStyle == ExpandArrowStyle.text ||
+        expandArrowStyle == ExpandArrowStyle.both;
+
+    return Tooltip(
+      message: tooltipMessage,
+      child: InkResponse(
+        containedInkWell: isNotIcon,
+        highlightShape: isNotIcon ? BoxShape.rectangle : BoxShape.circle,
+        child: Padding(
+          padding: padding ??
+              EdgeInsets.all(expandArrowStyle == ExpandArrowStyle.text ? 8 : 4),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              if (expandArrowStyle != ExpandArrowStyle.text)
+                RotationTransition(
+                  turns: animation,
+                  child: Icon(
+                    icon ?? Icons.expand_more,
+                    color:
+                        arrowColor ?? Theme.of(context).textTheme.caption.color,
+                    size: arrowSize ?? 30,
+                  ),
+                ),
+              if (isNotIcon) ...[
+                const SizedBox(width: 2.0),
+                DefaultTextStyle(
+                  style: Theme.of(context).textTheme.subtitle2.copyWith(
+                        color: Theme.of(context).textTheme.caption.color,
+                      ),
+                  child: Text(
+                    tooltipMessage.toUpperCase(),
+                    style: hintTextStyle,
+                  ),
+                ),
+                const SizedBox(width: 2.0),
+              ]
+            ],
           ),
-          onTap: widget.onTap,
         ),
+        onTap: onTap,
       ),
     );
   }
-
-  /// Shows a tooltip message depending on the [animation] state.
-  String get message =>
-      widget.animation.value == 0 ? widget.minMessage : widget.maxMessage;
 }

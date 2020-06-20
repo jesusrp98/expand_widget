@@ -6,34 +6,52 @@ import 'expand_arrow.dart';
 const Duration _kExpand = Duration(milliseconds: 300);
 
 /// This widget is used to show parcial text, if the text is too big for the parent size.
-/// You can specify the [maxLenght] parameter. If the text is short enough,
+/// You can specify the [maxLines] parameter. If the text is short enough,
 /// no 'expand arrow' widget will be shown.
 class ExpandText extends StatefulWidget {
-  /// Message used as a tooltip when the widget is minimized
-  final String minMessage;
+  /// Message used as a tooltip when the widget is minimized.
+  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
+  final String collapsedHint;
 
-  /// Message used as a tooltip when the widget is maximazed
-  final String maxMessage;
+  /// Message used as a tooltip when the widget is maximazed.
+  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
+  final String expandedHint;
+
+  /// Defines padding value.
+  ///
+  /// Default value if this widget's icon-only: [EdgeInsets.all(4)].
+  /// If text is shown: [EdgeInsets.all(8)].
+  final EdgeInsets arrowPadding;
 
   /// Color of the arrow widget. Defaults to the caption text style color.
   final Color arrowColor;
 
-  /// Size of the arrow widget. Default is 30.
+  /// Size of the arrow widget. Default is [30].
   final double arrowSize;
+
+  /// Icon that will be used instead of an arrow.
+  /// Default is [Icons.expand_more].
+  final IconData icon;
+
+  /// Style of the displayed message.
+  final TextStyle hintTextStyle;
+
+  /// Defines arrow rendering style.
+  final ExpandArrowStyle expandArrowStyle;
 
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
-  /// Text that will be displayed
-  final String text;
+  /// Text that will be displayed.
+  final String data;
 
   /// Maximun number of lines the widget shows when it's minimized. Default is 8.
-  final int maxLength;
+  final int maxLines;
 
-  /// Corresponds to the style parameter of the text view
+  /// Corresponds to the style parameter of the text view.
   final TextStyle style;
 
-  /// Corresponds to the aling parameter of the text view
+  /// Corresponds to the aling parameter of the text view.
   final TextAlign textAlign;
 
   /// Corresponds to the overflow parameter of the text view. Default is 'fade'.
@@ -48,21 +66,36 @@ class ExpandText extends StatefulWidget {
   /// Wheter the text view should expand/retract if the user drags on it. Default is 'true'.
   final bool expandOnGesture;
 
+  /// Ability to hide arrow from display when content is expanded.
+  final bool hideArrowOnExpanded;
+
   const ExpandText(
-    this.text, {
+    this.data, {
     Key key,
-    this.minMessage = 'Show more',
-    this.maxMessage = 'Show less',
+    this.collapsedHint,
+    this.expandedHint,
+    this.arrowPadding,
     this.arrowColor,
     this.arrowSize = 30,
+    this.icon,
+    this.hintTextStyle,
+    this.expandArrowStyle = ExpandArrowStyle.icon,
     this.animationDuration = _kExpand,
-    this.maxLength = 8,
+    this.maxLines = 8,
     this.style,
     this.textAlign,
     this.overflow = TextOverflow.fade,
     this.expandWidth = false,
     this.expandOnGesture = true,
-  }) : super(key: key);
+    this.hideArrowOnExpanded = false,
+  })  : assert(
+          data != null,
+          'A non-null String must be provided to a ExpandText widget.',
+        ),
+        assert(expandWidth != null),
+        assert(expandOnGesture != null),
+        assert(hideArrowOnExpanded != null),
+        super(key: key);
 
   @override
   _ExpandTextState createState() => _ExpandTextState();
@@ -70,21 +103,22 @@ class ExpandText extends StatefulWidget {
 
 class _ExpandTextState extends State<ExpandText>
     with TickerProviderStateMixin<ExpandText> {
-  /// Custom animation curve for arrow controll
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeInOutCubic);
+  /// Custom animation curve for arrow controll.
+  static final _easeInCurve = CurveTween(curve: Curves.easeInOutCubic);
 
-  /// Controlls the rotation of the arrow widget
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
+  /// Controlls the rotation of the arrow widget.
+  static final _halfTurn = Tween<double>(begin: 0.0, end: 0.5);
 
-  /// General animation controller
+  /// General animation controller.
   AnimationController _controller;
 
-  /// Animations for arrow's rotation control
+  /// Animations for height control.
+  Animation<double> _heightFactor;
+
+  /// Animations for arrow's rotation control.
   Animation<double> _iconTurns;
 
-  /// Auxiliary variable to controll expand status
+  /// Auxiliary variable to controll expand status.
   bool _isExpanded = false;
 
   @override
@@ -97,8 +131,9 @@ class _ExpandTextState extends State<ExpandText>
       vsync: this,
     );
 
-    // Initializing the animation, depending on the [_easeInTween] curve
-    _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
+    // Initializing the animation, depending on the [_easeInCurve] curve
+    _heightFactor = _controller.drive(_easeInCurve);
+    _iconTurns = _controller.drive(_halfTurn.chain(_easeInCurve));
   }
 
   @override
@@ -133,22 +168,22 @@ class _ExpandTextState extends State<ExpandText>
   /// this instance of the object.
   Widget _buildChildren(BuildContext context, Widget child) {
     return LayoutBuilder(builder: (context, size) {
-
-    final Text textWidget = child as Text;
-    final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
-    TextStyle effectiveTextStyle = textWidget.style;
-    if (textWidget.style == null || textWidget.style.inherit)
-      effectiveTextStyle = defaultTextStyle.style.merge(textWidget.style);
-    if (MediaQuery.boldTextOverride(context))
-      effectiveTextStyle = effectiveTextStyle.merge(const TextStyle(fontWeight: FontWeight.bold));
+      final Text textWidget = child as Text;
+      final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
+      TextStyle effectiveTextStyle = textWidget.style;
+      if (textWidget.style == null || textWidget.style.inherit)
+        effectiveTextStyle = defaultTextStyle.style.merge(textWidget.style);
+      if (MediaQuery.boldTextOverride(context))
+        effectiveTextStyle = effectiveTextStyle
+            .merge(const TextStyle(fontWeight: FontWeight.bold));
 
       final TextPainter textPainter = TextPainter(
         text: TextSpan(
-          text: widget.text,
+          text: widget.data,
           style: effectiveTextStyle,
         ),
         textDirection: TextDirection.ltr,
-        maxLines: widget.maxLength,
+        maxLines: widget.maxLines,
       )..layout(maxWidth: size.maxWidth);
 
       return textPainter.didExceedMaxLines
@@ -173,13 +208,28 @@ class _ExpandTextState extends State<ExpandText>
                     ),
                   ),
                 ),
-                ExpandArrow(
-                  minMessage: widget.minMessage,
-                  maxMessage: widget.maxMessage,
-                  color: widget.arrowColor,
-                  size: widget.arrowSize,
-                  animation: _iconTurns,
-                  onTap: _handleTap,
+                ClipRect(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    heightFactor: widget.hideArrowOnExpanded
+                        ? 1 - _heightFactor.value
+                        : 1,
+                    child: InkWell(
+                      onTap: _handleTap,
+                      child: ExpandArrow(
+                        collapsedHint: widget.collapsedHint,
+                        expandedHint: widget.expandedHint,
+                        animation: _iconTurns,
+                        padding: widget.arrowPadding,
+                        onTap: _handleTap,
+                        arrowColor: widget.arrowColor,
+                        arrowSize: widget.arrowSize,
+                        icon: widget.icon,
+                        hintTextStyle: widget.hintTextStyle,
+                        expandArrowStyle: widget.expandArrowStyle,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             )
@@ -195,7 +245,7 @@ class _ExpandTextState extends State<ExpandText>
     if (_isExpanded) {
       return (widget.overflow == TextOverflow.ellipsis) ? 2 ^ 64 : null;
     } else {
-      return widget.maxLength;
+      return widget.maxLines;
     }
   }
 
@@ -205,7 +255,7 @@ class _ExpandTextState extends State<ExpandText>
       animation: _controller.view,
       builder: _buildChildren,
       child: Text(
-        widget.text,
+        widget.data,
         textAlign: widget.textAlign,
         overflow: widget.overflow,
         style: widget.style,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'expand_arrow.dart';
 
@@ -9,33 +8,60 @@ const Duration _kExpand = Duration(milliseconds: 300);
 /// This widget unfolds a hidden widget to the user, called [child].
 /// This action is performed when the user clicks the 'expand' arrow.
 class ExpandChild extends StatefulWidget {
-  /// Message used as a tooltip when the widget is minimized
-  final String minMessage;
+  /// Message used as a tooltip when the widget is minimized.
+  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
+  final String collapsedHint;
 
-  /// Message used as a tooltip when the widget is maximazed
-  final String maxMessage;
+  /// Message used as a tooltip when the widget is maximazed.
+  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
+  final String expandedHint;
+
+  /// Defines padding value.
+  ///
+  /// Default value if this widget's icon-only: [EdgeInsets.all(4)].
+  /// If text is shown: [EdgeInsets.all(8)].
+  final EdgeInsets arrowPadding;
 
   /// Color of the arrow widget. Defaults to the caption text style color.
   final Color arrowColor;
 
-  /// Size of the arrow widget. Default is 30.
+  /// Size of the arrow widget. Default is [30].
   final double arrowSize;
+
+  /// Icon that will be used instead of an arrow.
+  /// Default is [Icons.expand_more].
+  final IconData icon;
+
+  /// Style of the displayed message.
+  final TextStyle hintTextStyle;
+
+  /// Defines arrow rendering style.
+  final ExpandArrowStyle expandArrowStyle;
 
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
-  /// This widget will be displayed if the user clicks the 'expand' arrow
+  /// This widget will be displayed if the user clicks the 'expand' arrow.
   final Widget child;
+
+  /// Ability to hide arrow from display when content is expanded.
+  final bool hideArrowOnExpanded;
 
   const ExpandChild({
     Key key,
-    this.minMessage = 'Show more',
-    this.maxMessage = 'Show less',
+    this.collapsedHint,
+    this.expandedHint,
+    this.arrowPadding,
     this.arrowColor,
     this.arrowSize = 30,
+    this.icon,
+    this.hintTextStyle,
+    this.expandArrowStyle = ExpandArrowStyle.icon,
     this.animationDuration = _kExpand,
     @required this.child,
-  }) : super(key: key);
+    this.hideArrowOnExpanded = false,
+  })  : assert(hideArrowOnExpanded != null),
+        super(key: key);
 
   @override
   _ExpandChildState createState() => _ExpandChildState();
@@ -43,24 +69,22 @@ class ExpandChild extends StatefulWidget {
 
 class _ExpandChildState extends State<ExpandChild>
     with SingleTickerProviderStateMixin {
-  /// Custom animation curve for arrow controll
-  static final Animatable<double> _easeInTween =
-      CurveTween(curve: Curves.easeInOutCubic);
+  /// Custom animation curve for arrow controll.
+  static final _easeInCurve = CurveTween(curve: Curves.easeInOutCubic);
 
-  /// Controlls the rotation of the arrow widget
-  static final Animatable<double> _halfTween =
-      Tween<double>(begin: 0.0, end: 0.5);
+  /// Controlls the rotation of the arrow widget.
+  static final _halfTurn = Tween<double>(begin: 0.0, end: 0.5);
 
-  /// General animation controller
+  /// General animation controller.
   AnimationController _controller;
 
-  /// Animations for height control
+  /// Animations for height control.
   Animation<double> _heightFactor;
 
-  /// Animations for arrow's rotation control
+  /// Animations for arrow's rotation control.
   Animation<double> _iconTurns;
 
-  /// Auxiliary variable to controll expand status
+  /// Auxiliary variable to controll expand status.
   bool _isExpanded = false;
 
   @override
@@ -73,9 +97,9 @@ class _ExpandChildState extends State<ExpandChild>
       vsync: this,
     );
 
-    // Initializing both animations, depending on the [_easeInTween] curve
-    _heightFactor = _controller.drive(_easeInTween);
-    _iconTurns = _controller.drive(_halfTween.chain(_easeInTween));
+    // Initializing both animations, depending on the [_easeInCurve] curve
+    _heightFactor = _controller.drive(_easeInCurve);
+    _iconTurns = _controller.drive(_halfTurn.chain(_easeInCurve));
   }
 
   @override
@@ -106,13 +130,27 @@ class _ExpandChildState extends State<ExpandChild>
             child: child,
           ),
         ),
-        ExpandArrow(
-          minMessage: widget.minMessage,
-          maxMessage: widget.maxMessage,
-          color: widget.arrowColor,
-          size: widget.arrowSize,
-          animation: _iconTurns,
-          onTap: _handleTap,
+        ClipRect(
+          child: Align(
+            alignment: Alignment.topCenter,
+            heightFactor:
+                widget.hideArrowOnExpanded ? 1 - _heightFactor.value : 1,
+            child: InkWell(
+              onTap: _handleTap,
+              child: ExpandArrow(
+                collapsedHint: widget.collapsedHint,
+                expandedHint: widget.expandedHint,
+                animation: _iconTurns,
+                padding: widget.arrowPadding,
+                onTap: _handleTap,
+                arrowColor: widget.arrowColor,
+                arrowSize: widget.arrowSize,
+                icon: widget.icon,
+                hintTextStyle: widget.hintTextStyle,
+                expandArrowStyle: widget.expandArrowStyle,
+              ),
+            ),
+          ),
         ),
       ],
     );
