@@ -1,9 +1,9 @@
 # Expand Widget
 
 [![Package](https://img.shields.io/pub/v/expand_widget.svg?style=for-the-badge)](https://pub.dartlang.org/packages/expand_widget)
-[![License](https://img.shields.io/github/license/jesusrp98/expand_widget.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+[![Build](https://img.shields.io/github/workflow/status/jesusrp98/expand_widget/Flutter%20Package%20CI?style=for-the-badge)](https://github.com/jesusrp98/expand_widget/actions)
 [![Patreon](https://img.shields.io/badge/Support-Patreon-orange.svg?style=for-the-badge)](https://www.patreon.com/jesusrp98)
-[![Stars](https://img.shields.io/github/stars/jesusrp98/expand_widget.svg?style=for-the-badge)](https://github.com/jesusrp98/expand_widget/stargazers)
+[![License](https://img.shields.io/github/license/jesusrp98/expand_widget.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 This Dart package offers developers a streamlined library of Flutter widgets, useful for expanding widgets and text views, when users interact with them.
 
