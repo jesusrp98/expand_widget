@@ -1,3 +1,4 @@
+```
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -33,14 +34,11 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Expand Text',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6
                   ),
                   SizedBox(height: 8),
                   ExpandText(
-                    '''
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit risus pulvinar, hendrerit nisi quis, vehicula ante. Morbi ut diam elit.
-Praesent non justo sodales, auctor lacus id, congue massa. Duis ac odio dui. Sed sed egestas metus. Donec hendrerit velit magna. Vivamus elementum, nulla ac tempor euismod, erat nunc mollis diam, nec consequat nisl ex eu tellus.
-Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget nibh tempor lacus aliquam rutrum.''',
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam suscipit risus pulvinar, hendrerit nisi quis, vehicula ante. Morbi ut diam elit. Praesent non justo sodales, auctor lacus id, congue massa. Duis ac odio dui. Sed sed egestas metus. Donec hendrerit velit magna. Vivamus elementum, nulla ac tempor euismod, erat nunc mollis diam, nec consequat nisl ex eu tellus. Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget nibh tempor lacus aliquam rutrum.',
                     textAlign: TextAlign.justify,
                   ),
                 ],
@@ -55,7 +53,7 @@ Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget 
                 children: <Widget>[
                   Text(
                     'Expand Child',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 8),
                   OutlineButton(
@@ -91,7 +89,7 @@ Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget 
                 children: <Widget>[
                   Text(
                     'Custom widget',
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 8),
                   OutlineButton(
@@ -131,3 +129,4 @@ Curabitur fringilla enim at lorem pulvinar, id ornare tellus aliquam. Cras eget 
     );
   }
 }
+```
