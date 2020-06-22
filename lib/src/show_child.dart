@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 /// Default animation duration
 const Duration _kExpand = Duration(milliseconds: 300);
 
+/// This widget is now considered as **deprecated**, you should not use it.
+///
+/// In order to get the same functionallity offered by this widget,
+/// just use a regular `ExpandChild` widget, with the `expandArrowStyle`
+/// property set to `ExpandArrowStyle.text`, and `hideArrowOnExpanded`
+/// set to `true`.
+///
+/// \---
+///
 /// This widget unfolds a hidden widget to the user, called [child].
 /// The main difference with [ExpandChild] is that, once expanded,
 /// the user can't hide once again.
