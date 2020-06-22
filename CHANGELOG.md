@@ -1,7 +1,12 @@
+## [1.0.0+1] - June 22nd, 2020
+
+* Added explanation about `ShowChild` deprecation and how to update.
+
 ## [1.0.0] - June 20th, 2020
 
 Thanks to @JamesMcIntosh for this release.
 * Now this package is consider **STABLE**: no more breaking changes expected.
+* **BREAKING CHANGE**: Changed `ExpandText`'s parameter `maxLength` name to `maxLines`.
 * Deprecated `ShowChild` widget.
 * Added `hideArrowOnExpansion` parameter.
 * Using `MaterialLocalizations` expand string as default arrow hints.
