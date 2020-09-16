@@ -1,3 +1,7 @@
+## [1.0.0+2] - September 16th, 2020
+
+* Hide tooltip when `expandArrowStyle` is set to `ExpandArrowStyle.text`.
+
 ## [1.0.0+1] - June 22nd, 2020
 
 * Added explanation about `ShowChild` deprecation and how to update.
