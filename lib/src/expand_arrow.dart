@@ -78,45 +78,49 @@ class ExpandArrow extends StatelessWidget {
     final isNotIcon = expandArrowStyle == ExpandArrowStyle.text ||
         expandArrowStyle == ExpandArrowStyle.both;
 
-    return Tooltip(
-      message: tooltipMessage,
-      child: InkResponse(
-        containedInkWell: isNotIcon,
-        highlightShape: isNotIcon ? BoxShape.rectangle : BoxShape.circle,
-        child: Padding(
-          padding: padding ??
-              EdgeInsets.all(expandArrowStyle == ExpandArrowStyle.text ? 8 : 4),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              if (expandArrowStyle != ExpandArrowStyle.text)
-                RotationTransition(
-                  turns: animation,
-                  child: Icon(
-                    icon ?? Icons.expand_more,
-                    color:
-                        arrowColor ?? Theme.of(context).textTheme.caption.color,
-                    size: arrowSize ?? 30,
-                  ),
+    final arrow = InkResponse(
+      containedInkWell: isNotIcon,
+      highlightShape: isNotIcon ? BoxShape.rectangle : BoxShape.circle,
+      child: Padding(
+        padding: padding ??
+            EdgeInsets.all(expandArrowStyle == ExpandArrowStyle.text ? 8 : 4),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            if (expandArrowStyle != ExpandArrowStyle.text)
+              RotationTransition(
+                turns: animation,
+                child: Icon(
+                  icon ?? Icons.expand_more,
+                  color:
+                      arrowColor ?? Theme.of(context).textTheme.caption.color,
+                  size: arrowSize ?? 30,
                 ),
-              if (isNotIcon) ...[
-                const SizedBox(width: 2.0),
-                DefaultTextStyle(
-                  style: Theme.of(context).textTheme.subtitle2.copyWith(
-                        color: Theme.of(context).textTheme.caption.color,
-                      ),
-                  child: Text(
-                    tooltipMessage.toUpperCase(),
-                    style: hintTextStyle,
-                  ),
+              ),
+            if (isNotIcon) ...[
+              const SizedBox(width: 2.0),
+              DefaultTextStyle(
+                style: Theme.of(context).textTheme.subtitle2.copyWith(
+                      color: Theme.of(context).textTheme.caption.color,
+                    ),
+                child: Text(
+                  tooltipMessage.toUpperCase(),
+                  style: hintTextStyle,
                 ),
-                const SizedBox(width: 2.0),
-              ]
-            ],
-          ),
+              ),
+              const SizedBox(width: 2.0),
+            ]
+          ],
         ),
-        onTap: onTap,
       ),
+      onTap: onTap,
     );
+
+    return expandArrowStyle != ExpandArrowStyle.icon
+        ? arrow
+        : Tooltip(
+            message: tooltipMessage,
+            child: arrow,
+          );
   }
 }
