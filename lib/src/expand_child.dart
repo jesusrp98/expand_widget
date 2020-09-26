@@ -38,6 +38,9 @@ class ExpandChild extends StatefulWidget {
   /// Defines arrow rendering style.
   final ExpandArrowStyle expandArrowStyle;
 
+  /// Autocapitalise tooltip text.
+  final bool capitalArrowtext;
+
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
@@ -57,6 +60,7 @@ class ExpandChild extends StatefulWidget {
     this.icon,
     this.hintTextStyle,
     this.expandArrowStyle = ExpandArrowStyle.icon,
+    this.capitalArrowtext = true,
     this.animationDuration = _kExpand,
     @required this.child,
     this.hideArrowOnExpanded = false,
@@ -148,6 +152,7 @@ class _ExpandChildState extends State<ExpandChild>
                 icon: widget.icon,
                 hintTextStyle: widget.hintTextStyle,
                 expandArrowStyle: widget.expandArrowStyle,
+                capitalArrowtext: widget.capitalArrowtext,
               ),
             ),
           ),
