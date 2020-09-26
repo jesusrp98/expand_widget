@@ -213,25 +213,27 @@ class _ExpandTextState extends State<ExpandText>
                   ),
                 ),
                 ClipRect(
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    heightFactor: widget.hideArrowOnExpanded
-                        ? 1 - _heightFactor.value
-                        : 1,
-                    child: InkWell(
-                      onTap: _handleTap,
-                      child: ExpandArrow(
-                        collapsedHint: widget.collapsedHint,
-                        expandedHint: widget.expandedHint,
-                        animation: _iconTurns,
-                        padding: widget.arrowPadding,
+                  child: Expanded(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      heightFactor: widget.hideArrowOnExpanded
+                          ? 1 - _heightFactor.value
+                          : 1,
+                      child: InkWell(
                         onTap: _handleTap,
-                        arrowColor: widget.arrowColor,
-                        arrowSize: widget.arrowSize,
-                        icon: widget.icon,
-                        hintTextStyle: widget.hintTextStyle,
-                        expandArrowStyle: widget.expandArrowStyle,
-                        capitalArrowtext: widget.capitalArrowtext,
+                        child: ExpandArrow(
+                          collapsedHint: widget.collapsedHint,
+                          expandedHint: widget.expandedHint,
+                          animation: _iconTurns,
+                          padding: widget.arrowPadding,
+                          onTap: _handleTap,
+                          arrowColor: widget.arrowColor,
+                          arrowSize: widget.arrowSize,
+                          icon: widget.icon,
+                          hintTextStyle: widget.hintTextStyle,
+                          expandArrowStyle: widget.expandArrowStyle,
+                          capitalArrowtext: widget.capitalArrowtext,
+                        ),
                       ),
                     ),
                   ),
