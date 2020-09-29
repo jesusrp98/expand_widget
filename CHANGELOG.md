@@ -1,3 +1,7 @@
+## [1.1.0] - September 29th, 2020
+
+* Added ability to capitalize tooltip & arrow text.
+
 ## [1.0.0+2] - September 16th, 2020
 
 * Hide tooltip when `expandArrowStyle` is set to `ExpandArrowStyle.text`.
