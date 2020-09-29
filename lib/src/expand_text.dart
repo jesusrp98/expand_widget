@@ -39,6 +39,9 @@ class ExpandText extends StatefulWidget {
   /// Defines arrow rendering style.
   final ExpandArrowStyle expandArrowStyle;
 
+  /// Autocapitalise tooltip text.
+  final bool capitalArrowtext;
+
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
@@ -80,6 +83,7 @@ class ExpandText extends StatefulWidget {
     this.icon,
     this.hintTextStyle,
     this.expandArrowStyle = ExpandArrowStyle.icon,
+    this.capitalArrowtext = true,
     this.animationDuration = _kExpand,
     this.maxLines = 8,
     this.style,
@@ -177,7 +181,7 @@ class _ExpandTextState extends State<ExpandText>
         effectiveTextStyle = effectiveTextStyle
             .merge(const TextStyle(fontWeight: FontWeight.bold));
 
-      final TextPainter textPainter = TextPainter(
+      final textPainter = TextPainter(
         text: TextSpan(
           text: widget.data,
           style: effectiveTextStyle,
@@ -227,6 +231,7 @@ class _ExpandTextState extends State<ExpandText>
                         icon: widget.icon,
                         hintTextStyle: widget.hintTextStyle,
                         expandArrowStyle: widget.expandArrowStyle,
+                        capitalArrowtext: widget.capitalArrowtext,
                       ),
                     ),
                   ),

@@ -53,6 +53,9 @@ class ExpandArrow extends StatelessWidget {
   ///  Defines arrow rendering style. Default is [ExpandArrowStyle.icon].
   final ExpandArrowStyle expandArrowStyle;
 
+  /// Autocapitalise tooltip text.
+  final bool capitalArrowtext;
+
   const ExpandArrow({
     Key key,
     this.collapsedHint,
@@ -65,6 +68,7 @@ class ExpandArrow extends StatelessWidget {
     this.icon,
     this.hintTextStyle,
     this.expandArrowStyle,
+    this.capitalArrowtext = true,
   })  : assert(animation != null),
         super(key: key);
 
@@ -104,7 +108,9 @@ class ExpandArrow extends StatelessWidget {
                       color: Theme.of(context).textTheme.caption.color,
                     ),
                 child: Text(
-                  tooltipMessage.toUpperCase(),
+                  capitalArrowtext == true
+                      ? tooltipMessage.toUpperCase()
+                      : tooltipMessage,
                   style: hintTextStyle,
                 ),
               ),
@@ -119,7 +125,9 @@ class ExpandArrow extends StatelessWidget {
     return expandArrowStyle != ExpandArrowStyle.icon
         ? arrow
         : Tooltip(
-            message: tooltipMessage,
+            message: capitalArrowtext == true
+                ? tooltipMessage.toUpperCase()
+                : tooltipMessage,
             child: arrow,
           );
   }

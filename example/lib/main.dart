@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Expand Text',
-                    style: Theme.of(context).textTheme.headline6
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 8),
                   ExpandText(
