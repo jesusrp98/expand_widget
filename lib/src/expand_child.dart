@@ -128,12 +128,10 @@ class _ExpandChildState extends State<ExpandChild>
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         ClipRect(
-          child: Expanded(
-            child: Align(
-              alignment: Alignment.topCenter,
-              heightFactor: _heightFactor.value,
-              child: child,
-            ),
+          child: Align(
+            alignment: Alignment.topCenter,
+            heightFactor: _heightFactor.value,
+            child: child,
           ),
         ),
         ClipRect(
