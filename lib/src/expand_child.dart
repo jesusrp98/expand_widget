@@ -50,6 +50,9 @@ class ExpandChild extends StatefulWidget {
   /// Ability to hide arrow from display when content is expanded.
   final bool hideArrowOnExpanded;
 
+  // Whether to expand vertically, or horizontally (= false)
+  final bool vertical;
+
   const ExpandChild({
     Key key,
     this.collapsedHint,
@@ -64,6 +67,7 @@ class ExpandChild extends StatefulWidget {
     this.animationDuration = _kExpand,
     @required this.child,
     this.hideArrowOnExpanded = false,
+    this.vertical = true,
   })  : assert(hideArrowOnExpanded != null),
         super(key: key);
 
@@ -82,8 +86,8 @@ class _ExpandChildState extends State<ExpandChild>
   /// General animation controller.
   AnimationController _controller;
 
-  /// Animations for height control.
-  Animation<double> _heightFactor;
+  /// Animations for height/width control.
+  Animation<double> _expandFactor;
 
   /// Animations for arrow's rotation control.
   Animation<double> _iconTurns;
@@ -102,7 +106,7 @@ class _ExpandChildState extends State<ExpandChild>
     );
 
     // Initializing both animations, depending on the [_easeInCurve] curve
-    _heightFactor = _controller.drive(_easeInCurve);
+    _expandFactor = _controller.drive(_easeInCurve);
     _iconTurns = _controller.drive(_halfTurn.chain(_easeInCurve));
   }
 
@@ -124,41 +128,84 @@ class _ExpandChildState extends State<ExpandChild>
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChild(BuildContext context, Widget child) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        ClipRect(
-          child: Align(
-            alignment: Alignment.topCenter,
-            heightFactor: _heightFactor.value,
-            child: child,
-          ),
-        ),
-        ClipRect(
-          child: Align(
-            alignment: Alignment.topCenter,
-            heightFactor:
-                widget.hideArrowOnExpanded ? 1 - _heightFactor.value : 1,
-            child: InkWell(
-              onTap: _handleTap,
-              child: ExpandArrow(
-                collapsedHint: widget.collapsedHint,
-                expandedHint: widget.expandedHint,
-                animation: _iconTurns,
-                padding: widget.arrowPadding,
-                onTap: _handleTap,
-                arrowColor: widget.arrowColor,
-                arrowSize: widget.arrowSize,
-                icon: widget.icon,
-                hintTextStyle: widget.hintTextStyle,
-                expandArrowStyle: widget.expandArrowStyle,
-                capitalArrowtext: widget.capitalArrowtext,
+    return widget.vertical
+        ? Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ClipRect(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  heightFactor: _expandFactor.value,
+                  child: child,
+                ),
               ),
-            ),
-          ),
-        ),
-      ],
-    );
+              ClipRect(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  heightFactor:
+                      widget.hideArrowOnExpanded ? 1 - _expandFactor.value : 1,
+                  child: InkWell(
+                    onTap: _handleTap,
+                    child: ExpandArrow(
+                      collapsedHint: widget.collapsedHint,
+                      expandedHint: widget.expandedHint,
+                      animation: _iconTurns,
+                      padding: widget.arrowPadding,
+                      onTap: _handleTap,
+                      arrowColor: widget.arrowColor,
+                      arrowSize: widget.arrowSize,
+                      icon: widget.icon,
+                      hintTextStyle: widget.hintTextStyle,
+                      expandArrowStyle: widget.expandArrowStyle,
+                      capitalArrowtext: widget.capitalArrowtext,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ClipRect(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      widthFactor: _expandFactor.value,
+                      child: child,
+                    ),
+                  ),
+                  ClipRect(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      widthFactor: widget.hideArrowOnExpanded
+                          ? 1 - _expandFactor.value
+                          : 1,
+                      child: InkWell(
+                        onTap: _handleTap,
+                        child: ExpandArrow(
+                          collapsedHint: widget.collapsedHint,
+                          expandedHint: widget.expandedHint,
+                          animation: _iconTurns,
+                          padding: widget.arrowPadding,
+                          onTap: _handleTap,
+                          arrowColor: widget.arrowColor,
+                          arrowSize: widget.arrowSize,
+                          icon: widget.icon ?? Icons.chevron_right,
+                          hintTextStyle: widget.hintTextStyle,
+                          expandArrowStyle: widget.expandArrowStyle,
+                          capitalArrowtext: widget.capitalArrowtext,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
   }
 
   @override
