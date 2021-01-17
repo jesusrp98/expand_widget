@@ -125,9 +125,7 @@ class ExpandArrow extends StatelessWidget {
     return expandArrowStyle != ExpandArrowStyle.icon
         ? arrow
         : Tooltip(
-            message: capitalArrowtext == true
-                ? tooltipMessage.toUpperCase()
-                : tooltipMessage,
+            message: tooltipMessage,
             child: arrow,
           );
   }

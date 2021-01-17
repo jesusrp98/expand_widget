@@ -1,3 +1,7 @@
+## [1.1.0+1] - January 17th, 2021
+
+* Fixed tooltip capitalization.
+
 ## [1.1.0] - September 29th, 2020
 
 * Added ability to capitalize tooltip & arrow text.
