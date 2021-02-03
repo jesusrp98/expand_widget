@@ -91,32 +91,30 @@ class HomePage extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 8),
-                  Row(
-                    children: [
-                      OutlineButton(
-                        child: Text('Button0'),
-                        onPressed: () => print('Pressed button0'),
-                      ),
-                      ExpandChild(
-                        vertical: false,
-                        child: Row(
-                          children: <Widget>[
-                            OutlineButton(
-                              child: Text('Button1'),
-                              onPressed: () => print('Pressed button1'),
-                            ),
-                            OutlineButton(
-                              child: Text('Button2'),
-                              onPressed: () => print('Pressed button2'),
-                            ),
-                            OutlineButton(
-                              child: Text('Button3'),
-                              onPressed: () => print('Pressed button3'),
-                            ),
-                          ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        OutlineButton(
+                          child: Text('Button'),
+                          onPressed: () => print('Pressed button0'),
                         ),
-                      ),
-                    ],
+                        ExpandChild(
+                          vertical: false,
+                          child: Row(
+                            children: [
+                              ...List.generate(
+                                4,
+                                    (index) => OutlineButton(
+                                  child: Text('Button$index'),
+                                  onPressed: () => print('Pressed button$index'),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
