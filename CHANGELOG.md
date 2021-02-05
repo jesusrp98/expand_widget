@@ -1,3 +1,8 @@
+## [1.2.0] - Febryary 5th, 2021
+
+* Added vertical expansion to `ExpandChild` widget. Thanks to @oyvindsam!
+* Updated default text style to `ExandText` widget.
+
 ## [1.1.0+1] - January 17th, 2021
 
 * Fixed tooltip capitalization.
