@@ -87,10 +87,10 @@ class ExpandText extends StatefulWidget {
     this.animationDuration = _kExpand,
     this.maxLines = 8,
     this.style,
-    this.textAlign,
+    this.textAlign = TextAlign.justify,
     this.overflow = TextOverflow.fade,
     this.expandWidth = false,
-    this.expandOnGesture = true,
+    this.expandOnGesture = false,
     this.hideArrowOnExpanded = false,
   })  : assert(
           data != null,
@@ -172,19 +172,12 @@ class _ExpandTextState extends State<ExpandText>
   /// this instance of the object.
   Widget _buildChildren(BuildContext context, Widget child) {
     return LayoutBuilder(builder: (context, size) {
-      final Text textWidget = child as Text;
-      final DefaultTextStyle defaultTextStyle = DefaultTextStyle.of(context);
-      TextStyle effectiveTextStyle = textWidget.style;
-      if (textWidget.style == null || textWidget.style.inherit)
-        effectiveTextStyle = defaultTextStyle.style.merge(textWidget.style);
-      if (MediaQuery.boldTextOverride(context))
-        effectiveTextStyle = effectiveTextStyle
-            .merge(const TextStyle(fontWeight: FontWeight.bold));
+      final defaultTextStyle = (child as DefaultTextStyle).style;
 
       final textPainter = TextPainter(
         text: TextSpan(
           text: widget.data,
-          style: effectiveTextStyle,
+          style: defaultTextStyle,
         ),
         textDirection: TextDirection.ltr,
         maxLines: widget.maxLines,
@@ -259,12 +252,19 @@ class _ExpandTextState extends State<ExpandText>
     return AnimatedBuilder(
       animation: _controller.view,
       builder: _buildChildren,
-      child: Text(
-        widget.data,
-        textAlign: widget.textAlign,
-        overflow: widget.overflow,
-        style: widget.style,
-        maxLines: _maxLines,
+      child: DefaultTextStyle(
+        style: Theme.of(context)
+            .textTheme
+            .bodyText2
+            .copyWith(color: Theme.of(context).textTheme.caption.color)
+            .merge(widget.style),
+        child: Text(
+          widget.data,
+          textAlign: widget.textAlign,
+          overflow: widget.overflow,
+          style: widget.style,
+          maxLines: _maxLines,
+        ),
       ),
     );
   }
