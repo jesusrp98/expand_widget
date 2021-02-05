@@ -100,14 +100,15 @@ class HomePage extends StatelessWidget {
                           onPressed: () => print('Pressed button0'),
                         ),
                         ExpandChild(
-                          vertical: false,
+                          expandDirection: Axis.horizontal,
                           child: Row(
                             children: [
                               ...List.generate(
                                 4,
-                                    (index) => OutlineButton(
+                                (index) => OutlineButton(
                                   child: Text('Button$index'),
-                                  onPressed: () => print('Pressed button$index'),
+                                  onPressed: () =>
+                                      print('Pressed button$index'),
                                 ),
                               )
                             ],

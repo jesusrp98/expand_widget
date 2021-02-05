@@ -50,8 +50,8 @@ class ExpandChild extends StatefulWidget {
   /// Ability to hide arrow from display when content is expanded.
   final bool hideArrowOnExpanded;
 
-  // Whether to expand vertically, or horizontally (= false)
-  final bool vertical;
+  /// Direction of exapnsion, verticla by default.
+  final Axis expandDirection;
 
   const ExpandChild({
     Key key,
@@ -67,7 +67,7 @@ class ExpandChild extends StatefulWidget {
     this.animationDuration = _kExpand,
     @required this.child,
     this.hideArrowOnExpanded = false,
-    this.vertical = true,
+    this.expandDirection = Axis.vertical,
   })  : assert(hideArrowOnExpanded != null),
         super(key: key);
 
@@ -128,7 +128,7 @@ class _ExpandChildState extends State<ExpandChild>
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChild(BuildContext context, Widget child) {
-    return widget.vertical
+    return widget.expandDirection == Axis.vertical
         ? Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
