@@ -87,6 +87,46 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
+                    'Expand Child Horizontally',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  SizedBox(height: 8),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        OutlineButton(
+                          child: Text('Button'),
+                          onPressed: () => print('Pressed button0'),
+                        ),
+                        ExpandChild(
+                          expandDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              ...List.generate(
+                                4,
+                                (index) => OutlineButton(
+                                  child: Text('Button$index'),
+                                  onPressed: () =>
+                                      print('Pressed button$index'),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Card(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Column(
+                children: <Widget>[
+                  Text(
                     'Custom widget',
                     style: Theme.of(context).textTheme.headline6,
                   ),
