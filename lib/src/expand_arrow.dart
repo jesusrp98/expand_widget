@@ -18,11 +18,11 @@ enum ExpandArrowStyle {
 class ExpandArrow extends StatelessWidget {
   /// String used as a tooltip when the widget is minimized.
   /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
-  final String collapsedHint;
+  final String? collapsedHint;
 
   /// String used as a tooltip when the widget is maximazed.
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
-  final String expandedHint;
+  final String? expandedHint;
 
   /// Controlls the arrow's fluid(TM) animation for
   /// the arrow's rotation.
@@ -32,35 +32,35 @@ class ExpandArrow extends StatelessWidget {
   ///
   /// Default value if this widget's icon-only: [EdgeInsets.all(4)].
   /// If text is shown: [EdgeInsets.all(8)].
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   /// Callback to controll what happeds when the arrow is clicked.
-  final void Function() onTap;
+  final void Function()? onTap;
 
   /// Defines arrow's color.
-  final Color arrowColor;
+  final Color? arrowColor;
 
   /// Defines arrow's size. Default is [30].
-  final double arrowSize;
+  final double? arrowSize;
 
   /// Icon that will be used instead of an arrow.
   /// Default is [Icons.expand_more].
-  final IconData icon;
+  final IconData? icon;
 
   /// Style of the displayed message.
-  final TextStyle hintTextStyle;
+  final TextStyle? hintTextStyle;
 
   ///  Defines arrow rendering style. Default is [ExpandArrowStyle.icon].
-  final ExpandArrowStyle expandArrowStyle;
+  final ExpandArrowStyle? expandArrowStyle;
 
   /// Autocapitalise tooltip text.
   final bool capitalArrowtext;
 
   const ExpandArrow({
-    Key key,
+    Key? key,
     this.collapsedHint,
     this.expandedHint,
-    @required this.animation,
+    required this.animation,
     this.padding,
     this.onTap,
     this.arrowColor,
@@ -97,15 +97,15 @@ class ExpandArrow extends StatelessWidget {
                 child: Icon(
                   icon ?? Icons.expand_more,
                   color:
-                      arrowColor ?? Theme.of(context).textTheme.caption.color,
+                      arrowColor ?? Theme.of(context).textTheme.caption!.color,
                   size: arrowSize ?? 30,
                 ),
               ),
             if (isNotIcon) ...[
               const SizedBox(width: 2.0),
               DefaultTextStyle(
-                style: Theme.of(context).textTheme.subtitle2.copyWith(
-                      color: Theme.of(context).textTheme.caption.color,
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      color: Theme.of(context).textTheme.caption!.color,
                     ),
                 child: Text(
                   capitalArrowtext == true

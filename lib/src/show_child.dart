@@ -27,10 +27,10 @@ class ShowChild extends StatefulWidget {
   final Widget child;
 
   const ShowChild({
-    Key key,
+    Key? key,
     this.animationDuration = _kExpand,
-    @required this.indicator,
-    @required this.child,
+    required this.indicator,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -45,10 +45,10 @@ class _ShowChildState extends State<ShowChild>
       CurveTween(curve: Curves.easeInOutCubic);
 
   /// General animation controller.
-  AnimationController _controller;
+  late AnimationController _controller;
 
   /// Animations for height control.
-  Animation<double> _heightFactor;
+  late Animation<double> _heightFactor;
 
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _ShowChildState extends State<ShowChild>
     });
   }
 
-  Widget _buildChild(BuildContext context, Widget child) {
+  Widget _buildChild(BuildContext context, Widget? child) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[

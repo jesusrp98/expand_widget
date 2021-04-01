@@ -11,30 +11,30 @@ const Duration _kExpand = Duration(milliseconds: 300);
 class ExpandText extends StatefulWidget {
   /// Message used as a tooltip when the widget is minimized.
   /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
-  final String collapsedHint;
+  final String? collapsedHint;
 
   /// Message used as a tooltip when the widget is maximazed.
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
-  final String expandedHint;
+  final String? expandedHint;
 
   /// Defines padding value.
   ///
   /// Default value if this widget's icon-only: [EdgeInsets.all(4)].
   /// If text is shown: [EdgeInsets.all(8)].
-  final EdgeInsets arrowPadding;
+  final EdgeInsets? arrowPadding;
 
   /// Color of the arrow widget. Defaults to the caption text style color.
-  final Color arrowColor;
+  final Color? arrowColor;
 
   /// Size of the arrow widget. Default is [30].
   final double arrowSize;
 
   /// Icon that will be used instead of an arrow.
   /// Default is [Icons.expand_more].
-  final IconData icon;
+  final IconData? icon;
 
   /// Style of the displayed message.
-  final TextStyle hintTextStyle;
+  final TextStyle? hintTextStyle;
 
   /// Defines arrow rendering style.
   final ExpandArrowStyle expandArrowStyle;
@@ -52,7 +52,7 @@ class ExpandText extends StatefulWidget {
   final int maxLines;
 
   /// Corresponds to the style parameter of the text view.
-  final TextStyle style;
+  final TextStyle? style;
 
   /// Corresponds to the aling parameter of the text view.
   final TextAlign textAlign;
@@ -74,7 +74,7 @@ class ExpandText extends StatefulWidget {
 
   const ExpandText(
     this.data, {
-    Key key,
+    Key? key,
     this.collapsedHint,
     this.expandedHint,
     this.arrowPadding,
@@ -114,13 +114,13 @@ class _ExpandTextState extends State<ExpandText>
   static final _halfTurn = Tween<double>(begin: 0.0, end: 0.5);
 
   /// General animation controller.
-  AnimationController _controller;
+  late AnimationController _controller;
 
   /// Animations for height control.
-  Animation<double> _heightFactor;
+  late Animation<double> _heightFactor;
 
   /// Animations for arrow's rotation control.
-  Animation<double> _iconTurns;
+  late Animation<double> _iconTurns;
 
   /// Auxiliary variable to controll expand status.
   bool _isExpanded = false;
@@ -148,15 +148,15 @@ class _ExpandTextState extends State<ExpandText>
 
   /// Method called when the user clicks on the expand arrow,
   /// clicks or drags on the child text view.
-  void _handleTap([DragEndDetails dragDetails]) {
+  void _handleTap([DragEndDetails? dragDetails]) {
     setState(() {
       // If the user dragged the content
       if (dragDetails != null) {
         // If the drag finishes with some velocity
         // If not, no text expansion will be performed
         if (dragDetails.primaryVelocity != 0) {
-          _isExpanded = dragDetails.primaryVelocity > 0;
-          dragDetails.primaryVelocity > 0
+          _isExpanded = dragDetails.primaryVelocity! > 0;
+          dragDetails.primaryVelocity! > 0
               ? _controller.forward()
               : _controller.reverse();
         }
@@ -170,7 +170,7 @@ class _ExpandTextState extends State<ExpandText>
   /// Builds the widget itself. If the [_isExpanded] parameter is 'true',
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChildren(BuildContext context, Widget? child) {
     return LayoutBuilder(builder: (context, size) {
       final defaultTextStyle = (child as DefaultTextStyle).style;
 
@@ -239,7 +239,7 @@ class _ExpandTextState extends State<ExpandText>
   /// depending on [_isExpanded].
   /// If [overflow] is set to ellipsis, it must not return null,
   /// otherwise the entire app could explode :)
-  int get _maxLines {
+  int? get _maxLines {
     if (_isExpanded) {
       return (widget.overflow == TextOverflow.ellipsis) ? 2 ^ 64 : null;
     } else {
@@ -255,8 +255,8 @@ class _ExpandTextState extends State<ExpandText>
       child: DefaultTextStyle(
         style: Theme.of(context)
             .textTheme
-            .bodyText2
-            .copyWith(color: Theme.of(context).textTheme.caption.color)
+            .bodyText2!
+            .copyWith(color: Theme.of(context).textTheme.caption!.color)
             .merge(widget.style),
         child: Text(
           widget.data,
