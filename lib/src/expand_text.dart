@@ -92,14 +92,7 @@ class ExpandText extends StatefulWidget {
     this.expandWidth = false,
     this.expandOnGesture = false,
     this.hideArrowOnExpanded = false,
-  })  : assert(
-          data != null,
-          'A non-null String must be provided to a ExpandText widget.',
-        ),
-        assert(expandWidth != null),
-        assert(expandOnGesture != null),
-        assert(hideArrowOnExpanded != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   _ExpandTextState createState() => _ExpandTextState();

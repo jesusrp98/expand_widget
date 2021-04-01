@@ -1,3 +1,8 @@
+## [2.0.0] - April 1st, 2021
+
+* Migrated to null-safety. Thanks to @oyvindsam!
+* Removed `ShowChild` widget.
+
 ## [1.2.0] - Febryary 5th, 2021
 
 * Added vertical expansion to `ExpandChild` widget. Thanks to @oyvindsam!

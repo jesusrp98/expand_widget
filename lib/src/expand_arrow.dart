@@ -69,8 +69,7 @@ class ExpandArrow extends StatelessWidget {
     this.hintTextStyle,
     this.expandArrowStyle,
     this.capitalArrowtext = true,
-  })  : assert(animation != null),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +103,7 @@ class ExpandArrow extends StatelessWidget {
             if (isNotIcon) ...[
               const SizedBox(width: 2.0),
               DefaultTextStyle(
-                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                style: Theme.of(context).textTheme.bodyText2!.copyWith(
                       color: Theme.of(context).textTheme.caption!.color,
                     ),
                 child: Text(
