@@ -1,6 +1,6 @@
 ## [2.0.0] - April 1st, 2021
 
-* Migrated to null-safety. Thanks to @oyvindsam!
+* Migrated to null-safety. Thanks to @palmsnipe!
 * Removed `ShowChild` widget.
 
 ## [1.2.0] - Febryary 5th, 2021

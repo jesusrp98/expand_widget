@@ -19,7 +19,7 @@ jobs:
         run: flutter pub get
 
       - name: Analyzing files
-        run: flutter analyze
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos
 
       - name: Analyzing package
         run: flutter pub publish --dry-run
