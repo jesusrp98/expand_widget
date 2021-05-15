@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'expand_arrow.dart';
+import 'indicator_builder.dart';
 
 /// Default animation duration
 const Duration _kExpand = Duration(milliseconds: 300);
@@ -53,6 +54,9 @@ class ExpandChild extends StatefulWidget {
   /// Direction of exapnsion, vertical by default.
   final Axis expandDirection;
 
+  /// Method to override the [ExpandArrow] widget for expanding the content.
+  final IndicatorBuilder? indicatorBuilder;
+
   const ExpandChild({
     Key? key,
     this.collapsedHint,
@@ -68,6 +72,7 @@ class ExpandChild extends StatefulWidget {
     required this.child,
     this.hideArrowOnExpanded = false,
     this.expandDirection = Axis.vertical,
+    this.indicatorBuilder,
   }) : super(key: key);
 
   @override
@@ -127,6 +132,28 @@ class _ExpandChildState extends State<ExpandChild>
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChild(BuildContext context, Widget? child) {
+    final double heightIndicatorFactor =
+        widget.hideArrowOnExpanded ? 1 - _expandFactor.value : 1;
+
+    final indicator = widget.indicatorBuilder != null
+        ? widget.indicatorBuilder!(context, _handleTap, _isExpanded)
+        : ExpandArrow(
+            collapsedHint: widget.collapsedHint,
+            expandedHint: widget.expandedHint,
+            animation: _iconTurns,
+            padding: widget.arrowPadding,
+            onTap: _handleTap,
+            arrowColor: widget.arrowColor,
+            arrowSize: widget.arrowSize,
+            icon: widget.icon ??
+                (widget.expandDirection == Axis.horizontal
+                    ? Icons.chevron_right
+                    : null),
+            hintTextStyle: widget.hintTextStyle,
+            expandArrowStyle: widget.expandArrowStyle,
+            capitalArrowtext: widget.capitalArrowtext,
+          );
+
     return widget.expandDirection == Axis.vertical
         ? Column(
             mainAxisSize: MainAxisSize.min,
@@ -141,24 +168,8 @@ class _ExpandChildState extends State<ExpandChild>
               ClipRect(
                 child: Align(
                   alignment: Alignment.topCenter,
-                  heightFactor:
-                      widget.hideArrowOnExpanded ? 1 - _expandFactor.value : 1,
-                  child: InkWell(
-                    onTap: _handleTap,
-                    child: ExpandArrow(
-                      collapsedHint: widget.collapsedHint,
-                      expandedHint: widget.expandedHint,
-                      animation: _iconTurns,
-                      padding: widget.arrowPadding,
-                      onTap: _handleTap,
-                      arrowColor: widget.arrowColor,
-                      arrowSize: widget.arrowSize,
-                      icon: widget.icon,
-                      hintTextStyle: widget.hintTextStyle,
-                      expandArrowStyle: widget.expandArrowStyle,
-                      capitalArrowtext: widget.capitalArrowtext,
-                    ),
-                  ),
+                  heightFactor: heightIndicatorFactor,
+                  child: indicator,
                 ),
               ),
             ],
@@ -180,25 +191,8 @@ class _ExpandChildState extends State<ExpandChild>
                   ClipRect(
                     child: Align(
                       alignment: Alignment.centerRight,
-                      widthFactor: widget.hideArrowOnExpanded
-                          ? 1 - _expandFactor.value
-                          : 1,
-                      child: InkWell(
-                        onTap: _handleTap,
-                        child: ExpandArrow(
-                          collapsedHint: widget.collapsedHint,
-                          expandedHint: widget.expandedHint,
-                          animation: _iconTurns,
-                          padding: widget.arrowPadding,
-                          onTap: _handleTap,
-                          arrowColor: widget.arrowColor,
-                          arrowSize: widget.arrowSize,
-                          icon: widget.icon ?? Icons.chevron_right,
-                          hintTextStyle: widget.hintTextStyle,
-                          expandArrowStyle: widget.expandArrowStyle,
-                          capitalArrowtext: widget.capitalArrowtext,
-                        ),
-                      ),
+                      widthFactor: heightIndicatorFactor,
+                      child: indicator,
                     ),
                   ),
                 ],

@@ -1,3 +1,8 @@
+## [2.1.0] - May 15th, 2021
+
+* Added `indicatorBuilder` parameter to both `ExpandChild` and `ExandText` widgets.
+* Fixed visual bug with `ExpandArrow`.
+
 ## [2.0.0] - April 1st, 2021
 
 * Migrated to null-safety. Thanks to @palmsnipe!

@@ -127,7 +127,7 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text(
-                    'Custom widget',
+                    'Custom icon & text',
                     style: Theme.of(context).textTheme.headline6,
                   ),
                   SizedBox(height: 8),
@@ -142,6 +142,56 @@ class HomePage extends StatelessWidget {
                     expandArrowStyle: ExpandArrowStyle.both,
                     icon: Icons.cake,
                     hintTextStyle: TextStyle(fontSize: 16),
+                    child: Column(
+                      children: <Widget>[
+                        OutlineButton(
+                          child: Text('Button1'),
+                          onPressed: () => print('Pressed button1'),
+                        ),
+                        OutlineButton(
+                          child: Text('Button2'),
+                          onPressed: () => print('Pressed button2'),
+                        ),
+                        OutlineButton(
+                          child: Text('Button3'),
+                          onPressed: () => print('Pressed button3'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Card(
+            child: Padding(
+              padding: EdgeInsets.all(8),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Custom widget',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  SizedBox(height: 8),
+                  OutlineButton(
+                    child: Text('Button0'),
+                    onPressed: () => print('Pressed button0'),
+                  ),
+                  ExpandChild(
+                    arrowColor: Colors.red,
+                    arrowSize: 40,
+                    expandArrowStyle: ExpandArrowStyle.both,
+                    icon: Icons.cake,
+                    hintTextStyle: TextStyle(fontSize: 16),
+                    indicatorBuilder: (context, onTap, expanded) => InkWell(
+                      onTap: onTap,
+                      child: FlutterLogo(
+                        style: expanded
+                            ? FlutterLogoStyle.horizontal
+                            : FlutterLogoStyle.stacked,
+                        size: 50,
+                      ),
+                    ),
                     child: Column(
                       children: <Widget>[
                         OutlineButton(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'expand_arrow.dart';
+import 'indicator_builder.dart';
 
 /// Default animation duration
 const Duration _kExpand = Duration(milliseconds: 300);
@@ -72,6 +73,9 @@ class ExpandText extends StatefulWidget {
   /// Ability to hide arrow from display when content is expanded.
   final bool hideArrowOnExpanded;
 
+  /// Method to override the [ExpandArrow] widget for expanding the content.
+  final IndicatorBuilder? indicatorBuilder;
+
   const ExpandText(
     this.data, {
     Key? key,
@@ -92,6 +96,7 @@ class ExpandText extends StatefulWidget {
     this.expandWidth = false,
     this.expandOnGesture = false,
     this.hideArrowOnExpanded = false,
+    this.indicatorBuilder,
   }) : super(key: key);
 
   @override
@@ -204,22 +209,22 @@ class _ExpandTextState extends State<ExpandText>
                     heightFactor: widget.hideArrowOnExpanded
                         ? 1 - _heightFactor.value
                         : 1,
-                    child: InkWell(
-                      onTap: _handleTap,
-                      child: ExpandArrow(
-                        collapsedHint: widget.collapsedHint,
-                        expandedHint: widget.expandedHint,
-                        animation: _iconTurns,
-                        padding: widget.arrowPadding,
-                        onTap: _handleTap,
-                        arrowColor: widget.arrowColor,
-                        arrowSize: widget.arrowSize,
-                        icon: widget.icon,
-                        hintTextStyle: widget.hintTextStyle,
-                        expandArrowStyle: widget.expandArrowStyle,
-                        capitalArrowtext: widget.capitalArrowtext,
-                      ),
-                    ),
+                    child: widget.indicatorBuilder != null
+                        ? widget.indicatorBuilder!(
+                            context, _handleTap, _isExpanded)
+                        : ExpandArrow(
+                            collapsedHint: widget.collapsedHint,
+                            expandedHint: widget.expandedHint,
+                            animation: _iconTurns,
+                            padding: widget.arrowPadding,
+                            onTap: _handleTap,
+                            arrowColor: widget.arrowColor,
+                            arrowSize: widget.arrowSize,
+                            icon: widget.icon,
+                            hintTextStyle: widget.hintTextStyle,
+                            expandArrowStyle: widget.expandArrowStyle,
+                            capitalArrowtext: widget.capitalArrowtext,
+                          ),
                   ),
                 ),
               ],

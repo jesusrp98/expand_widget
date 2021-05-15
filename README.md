@@ -31,6 +31,8 @@ There are two main 'expand' widgets:
   <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/3.png" width="300" hspace="4">
 </p>
 
+- You can also provide your own widget for the expand indicator, using the `indicatorBuilder` for both expaning widgets.
+
 - Use custom expanding hint strings! By default, it will use the ones provided by `MaterialLocalizations`.
 
 - Expand text view with swipe-down gestures, using the `expandOnGesture`, which by default is set to `false`.
