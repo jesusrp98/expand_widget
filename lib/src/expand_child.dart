@@ -13,6 +13,9 @@ class ExpandChild extends StatefulWidget {
   /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
   final String? collapsedHint;
 
+  ///Color of the whole widget's background.
+  final Color? expandedBGColor;
+
   /// Message used as a tooltip when the widget is maximazed.
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String? expandedHint;
@@ -60,6 +63,7 @@ class ExpandChild extends StatefulWidget {
   const ExpandChild({
     Key? key,
     this.collapsedHint,
+    this.expandedBGColor,
     this.expandedHint,
     this.arrowPadding,
     this.arrowColor,
@@ -98,6 +102,9 @@ class _ExpandChildState extends State<ExpandChild>
 
   /// Auxiliary variable to controll expand status.
   bool _isExpanded = false;
+
+  Color? expandedBGColor;
+
 
   @override
   void initState() {
@@ -203,10 +210,14 @@ class _ExpandChildState extends State<ExpandChild>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller.view,
-      builder: _buildChild,
-      child: widget.child,
+    return  Container(
+        color: _isExpanded ? widget.expandedBGColor : Colors.transparent,
+        child: AnimatedBuilder(
+          animation: _controller.view,
+          builder: _buildChild,
+          child:widget.child,
+        )
     );
+
   }
 }
