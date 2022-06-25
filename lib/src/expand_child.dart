@@ -16,6 +16,9 @@ class ExpandChild extends StatefulWidget {
   ///Color of the whole widget's background.
   final Color? expandedBGColor;
 
+  ///Color of the whole widget's background.
+  final bool? showBorders;
+
   /// Message used as a tooltip when the widget is maximazed.
   /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String? expandedHint;
@@ -63,6 +66,7 @@ class ExpandChild extends StatefulWidget {
   const ExpandChild({
     Key? key,
     this.collapsedHint,
+    this.showBorders,
     this.expandedBGColor,
     this.expandedHint,
     this.arrowPadding,
@@ -104,6 +108,7 @@ class _ExpandChildState extends State<ExpandChild>
   bool _isExpanded = false;
 
   Color? expandedBGColor;
+  bool? showBorders;
 
 
   @override
@@ -211,7 +216,13 @@ class _ExpandChildState extends State<ExpandChild>
   @override
   Widget build(BuildContext context) {
     return  Container(
-        color: _isExpanded ? widget.expandedBGColor : Colors.transparent,
+        decoration: _isExpanded ? BoxDecoration(
+            color: widget.expandedBGColor,
+            borderRadius: BorderRadius.all(
+                Radius.circular(5.0) //                 <--- border radius here
+            ),
+            border: widget.showBorders == true?  Border.all(color: Color(0xff707070), width: 1.0): null
+        ): null,
         child: AnimatedBuilder(
           animation: _controller.view,
           builder: _buildChild,
