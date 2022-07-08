@@ -173,15 +173,15 @@ class _ExpandChildState extends State<ExpandChild>
               ClipRect(
                 child: Align(
                   alignment: Alignment.topCenter,
-                  heightFactor: _expandFactor.value,
-                  child: child,
+                  heightFactor: heightIndicatorFactor,
+                  child: indicator,
                 ),
               ),
               ClipRect(
                 child: Align(
                   alignment: Alignment.topCenter,
-                  heightFactor: heightIndicatorFactor,
-                  child: indicator,
+                  heightFactor: _expandFactor.value,
+                  child: child,
                 ),
               ),
             ],
