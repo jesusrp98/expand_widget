@@ -50,7 +50,7 @@ If you want to take a deeper look at the example, take a look at the [example](h
 ```
 ExpandChild(
   child: Column(
-    children: <Widget>[
+    children: [
       OutlineButton(
         child: Text('Button1'),
         onPressed: () => print('Pressed button1'),

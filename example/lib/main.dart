@@ -142,12 +142,12 @@ class HomePage extends StatelessWidget {
                     onPressed: () => print('Pressed button0'),
                   ),
                   ExpandChild(
-                    hideArrowOnExpanded: true,
-                    arrowColor: Colors.red,
-                    arrowSize: 40,
-                    expandArrowStyle: ExpandArrowStyle.both,
-                    icon: Icons.cake,
-                    hintTextStyle: const TextStyle(fontSize: 16),
+                    hideIndicatorOnExpand: true,
+                    indicatorIconColor: Colors.red,
+                    indicatorIconSize: 40,
+                    expandIndicatorStyle: ExpandIndicatorStyle.both,
+                    indicatorIcon: Icons.cake,
+                    indicatorHintTextStyle: const TextStyle(fontSize: 16),
                     child: Column(
                       children: [
                         OutlinedButton(
@@ -184,11 +184,11 @@ class HomePage extends StatelessWidget {
                     onPressed: () => print('Pressed button0'),
                   ),
                   ExpandChild(
-                    arrowColor: Colors.red,
-                    arrowSize: 40,
-                    expandArrowStyle: ExpandArrowStyle.both,
-                    icon: Icons.cake,
-                    hintTextStyle: const TextStyle(fontSize: 16),
+                    indicatorIconColor: Colors.red,
+                    indicatorIconSize: 40,
+                    expandIndicatorStyle: ExpandIndicatorStyle.both,
+                    indicatorIcon: Icons.cake,
+                    indicatorHintTextStyle: const TextStyle(fontSize: 16),
                     indicatorBuilder: (context, onTap, expanded) => InkWell(
                       onTap: onTap,
                       child: FlutterLogo(
