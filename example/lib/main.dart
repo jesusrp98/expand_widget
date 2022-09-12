@@ -66,6 +66,7 @@ class HomePage extends StatelessWidget {
                     onPressed: () => print('Pressed button0'),
                   ),
                   ExpandChild(
+                    collapsedVisibilityFactor: 0.5,
                     child: Column(
                       children: [
                         OutlinedButton(
@@ -91,10 +92,14 @@ class HomePage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Expand Child Horizontally',
-                    style: Theme.of(context).textTheme.headline6,
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      'Expand Child Horizontally',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   SingleChildScrollView(
@@ -106,7 +111,8 @@ class HomePage extends StatelessWidget {
                           onPressed: () => print('Pressed button0'),
                         ),
                         ExpandChild(
-                          expandDirection: Axis.horizontal,
+                          direction: Axis.horizontal,
+                          collapsedVisibilityFactor: 0.2,
                           child: Row(
                             children: [
                               ...List.generate(
