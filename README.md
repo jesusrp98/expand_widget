@@ -19,12 +19,12 @@ There are two main 'expand' widgets:
 
 ## Features
 
-- The `ExpandArrowStyle` parameter allows you to select various render options, related to the expand arrow itself.
+- The `ExpandIndicatorStyle` parameter allows you to select various render options, related to the expand arrow itself.
 <p align="center">
   <img src="https://raw.githubusercontent.com/jesusrp98/expand_widget/master/screenshots/2.png" width="300" hspace="4">
 </p>
 
-- Hide the arrow widget when the view is being expanded, using the `hideArrowOnExpanded` parameter.
+- Hide the arrow widget when the view is being expanded, using the `hideIndicatorOnExpand` parameter.
 
 - Custimze the arrow widget itself: color, size, padding, icon...
 <p align="center">
@@ -38,6 +38,8 @@ There are two main 'expand' widgets:
 - Expand text view with swipe-down gestures, using the `expandOnGesture`, which by default is set to `false`.
 
 - You can also customize expand animation duration and curve easilly.
+
+- The `collapsedVisibilityFactor` (exclusive to the `ExpandChild` widget), allows the reveal of a section of the hidden content.
 
 ## Example
 
