@@ -146,10 +146,9 @@ class _ExpandChildState extends State<ExpandChild>
             padding: widget.indicatorPadding,
             iconColor: widget.indicatorIconColor,
             iconSize: widget.indicatorIconSize,
-            icon: widget.indicatorIcon ??
-                (widget.expandDirection == Axis.horizontal
-                    ? Icons.chevron_right
-                    : null),
+            icon: widget.expandDirection == Axis.horizontal
+                ? Icons.chevron_right
+                : widget.indicatorIcon,
             hintTextStyle: widget.indicatorHintTextStyle,
             capitalizeHintText: widget.capitalizeIndicatorHintText,
           );

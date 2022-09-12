@@ -66,14 +66,14 @@ class ExpandIndicator extends StatelessWidget {
     this.padding,
     this.iconColor,
     this.iconSize,
-    this.icon = Icons.expand_more,
+    this.icon,
     this.hintTextStyle,
     this.capitalizeHintText = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final tooltipMessage = !animation.isCompleted
+    final tooltipMessage = animation.value < 0.25
         ? collapsedHint ??
             MaterialLocalizations.of(context).collapsedIconTapHint
         : expandedHint ?? MaterialLocalizations.of(context).expandedIconTapHint;
@@ -84,6 +84,7 @@ class ExpandIndicator extends StatelessWidget {
     final indicator = InkResponse(
       containedInkWell: isNotIcon,
       highlightShape: isNotIcon ? BoxShape.rectangle : BoxShape.circle,
+      borderRadius: BorderRadius.circular(4),
       onTap: onTap,
       child: Padding(
         padding: padding ??
@@ -97,7 +98,7 @@ class ExpandIndicator extends StatelessWidget {
               RotationTransition(
                 turns: animation,
                 child: Icon(
-                  icon,
+                  icon ?? Icons.expand_more,
                   color:
                       iconColor ?? Theme.of(context).textTheme.caption!.color,
                   size: iconSize,
