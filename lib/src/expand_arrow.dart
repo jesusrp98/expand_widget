@@ -84,6 +84,7 @@ class ExpandArrow extends StatelessWidget {
     final arrow = InkResponse(
       containedInkWell: isNotIcon,
       highlightShape: isNotIcon ? BoxShape.rectangle : BoxShape.circle,
+      onTap: onTap,
       child: Padding(
         padding: padding ??
             EdgeInsets.all(expandArrowStyle == ExpandArrowStyle.text ? 8 : 4),
@@ -118,7 +119,6 @@ class ExpandArrow extends StatelessWidget {
           ],
         ),
       ),
-      onTap: onTap,
     );
 
     return expandArrowStyle != ExpandArrowStyle.icon

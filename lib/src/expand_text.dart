@@ -100,11 +100,11 @@ class ExpandText extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ExpandTextState createState() => _ExpandTextState();
+  State<ExpandText> createState() => _ExpandTextState();
 }
 
 class _ExpandTextState extends State<ExpandText>
-    with TickerProviderStateMixin<ExpandText> {
+    with SingleTickerProviderStateMixin {
   /// Custom animation curve for arrow controll.
   static final _easeInCurve = CurveTween(curve: Curves.easeInOutCubic);
 
@@ -169,68 +169,72 @@ class _ExpandTextState extends State<ExpandText>
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChildren(BuildContext context, Widget? child) {
-    return LayoutBuilder(builder: (context, size) {
-      final defaultTextStyle = (child as DefaultTextStyle).style;
+    return LayoutBuilder(
+      builder: (context, size) {
+        final defaultTextStyle = (child as DefaultTextStyle).style;
 
-      final textPainter = TextPainter(
-        text: TextSpan(
-          text: widget.data,
-          style: defaultTextStyle,
-        ),
-        textDirection: TextDirection.ltr,
-        maxLines: widget.maxLines,
-      )..layout(maxWidth: size.maxWidth);
+        final textPainter = TextPainter(
+          text: TextSpan(
+            text: widget.data,
+            style: defaultTextStyle,
+          ),
+          textDirection: TextDirection.ltr,
+          maxLines: widget.maxLines,
+        )..layout(maxWidth: size.maxWidth);
 
-      return textPainter.didExceedMaxLines
-          ? Column(
-              crossAxisAlignment: widget.expandWidth
-                  ? CrossAxisAlignment.stretch
-                  : CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                AnimatedSize(
-                  vsync: this,
-                  duration: widget.animationDuration,
-                  alignment: Alignment.topCenter,
-                  curve: Curves.easeInOutCubic,
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(),
-                    child: GestureDetector(
-                      child: child,
-                      onTap: widget.expandOnGesture ? _handleTap : null,
-                      onVerticalDragEnd:
-                          widget.expandOnGesture ? _handleTap : null,
+        return textPainter.didExceedMaxLines
+            ? Column(
+                crossAxisAlignment: widget.expandWidth
+                    ? CrossAxisAlignment.stretch
+                    : CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  AnimatedSize(
+                    duration: widget.animationDuration,
+                    alignment: Alignment.topCenter,
+                    curve: Curves.easeInOutCubic,
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(),
+                      child: GestureDetector(
+                        onTap: widget.expandOnGesture ? _handleTap : null,
+                        onVerticalDragEnd:
+                            widget.expandOnGesture ? _handleTap : null,
+                        child: child,
+                      ),
                     ),
                   ),
-                ),
-                ClipRect(
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    heightFactor: widget.hideArrowOnExpanded
-                        ? 1 - _heightFactor.value
-                        : 1,
-                    child: widget.indicatorBuilder != null
-                        ? widget.indicatorBuilder!(
-                            context, _handleTap, _isExpanded)
-                        : ExpandArrow(
-                            collapsedHint: widget.collapsedHint,
-                            expandedHint: widget.expandedHint,
-                            animation: _iconTurns,
-                            padding: widget.arrowPadding,
-                            onTap: _handleTap,
-                            arrowColor: widget.arrowColor,
-                            arrowSize: widget.arrowSize,
-                            icon: widget.icon,
-                            hintTextStyle: widget.hintTextStyle,
-                            expandArrowStyle: widget.expandArrowStyle,
-                            capitalArrowtext: widget.capitalArrowtext,
-                          ),
+                  ClipRect(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      heightFactor: widget.hideArrowOnExpanded
+                          ? 1 - _heightFactor.value
+                          : 1,
+                      child: widget.indicatorBuilder != null
+                          ? widget.indicatorBuilder!(
+                              context,
+                              _handleTap,
+                              _isExpanded,
+                            )
+                          : ExpandArrow(
+                              collapsedHint: widget.collapsedHint,
+                              expandedHint: widget.expandedHint,
+                              animation: _iconTurns,
+                              padding: widget.arrowPadding,
+                              onTap: _handleTap,
+                              arrowColor: widget.arrowColor,
+                              arrowSize: widget.arrowSize,
+                              icon: widget.icon,
+                              hintTextStyle: widget.hintTextStyle,
+                              expandArrowStyle: widget.expandArrowStyle,
+                              capitalArrowtext: widget.capitalArrowtext,
+                            ),
+                    ),
                   ),
-                ),
-              ],
-            )
-          : child;
-    });
+                ],
+              )
+            : child;
+      },
+    );
   }
 
   /// Returns the actual maximun number of allowed lines,

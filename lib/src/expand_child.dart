@@ -76,7 +76,7 @@ class ExpandChild extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ExpandChildState createState() => _ExpandChildState();
+  State<ExpandChild> createState() => _ExpandChildState();
 }
 
 class _ExpandChildState extends State<ExpandChild>
