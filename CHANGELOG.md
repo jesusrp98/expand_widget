@@ -1,3 +1,10 @@
+## [3.0.0] - September 12nd, 2022
+
+- **BREAKING CHANGE:** Set min Flutter version to 3.3.0.
+- **BREAKING CHANGE:** Updated most of parameter names.
+- **BREAKING CHANGE:** Add `collapsedVisibilityFactor` parameter to `ExpandChild`.
+- Major internal clean up.
+
 ## [2.1.0] - May 15th, 2021
 
 * Added `indicatorBuilder` parameter to both `ExpandChild` and `ExandText` widgets.
