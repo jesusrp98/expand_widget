@@ -4,7 +4,7 @@ import 'expand_indicator.dart';
 import 'indicator_builder.dart';
 
 /// Default expand animation duration.
-const _kExpandDuration = Duration(milliseconds: 2000);
+const _kExpandDuration = Duration(milliseconds: 300);
 
 /// This widget unfolds a hidden widget to the user, called [child].
 /// This action is performed when the user clicks the 'expand' indicator.
