@@ -77,6 +77,9 @@ class ExpandText extends StatefulWidget {
   /// Autocapitalise tooltip text. Defaults to `true`.
   final bool capitalizeIndicatorHintText;
 
+  /// Adjust horizontal alignment of the indicator.
+  final Alignment? indicatorAlignment;
+
   const ExpandText(
     this.data, {
     super.key,
@@ -98,6 +101,7 @@ class ExpandText extends StatefulWidget {
     this.indicatorIcon,
     this.indicatorHintTextStyle,
     this.capitalizeIndicatorHintText = true,
+    this.indicatorAlignment,
   });
 
   @override
@@ -205,7 +209,7 @@ class _ExpandTextState extends State<ExpandText>
                   ),
                   ClipRect(
                     child: Align(
-                      alignment: Alignment.topCenter,
+                      alignment: widget.indicatorAlignment ?? Alignment.center,
                       heightFactor: widget.hideIndicatorOnExpand
                           ? 1 - _heightFactor.value
                           : 1,

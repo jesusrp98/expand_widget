@@ -1,3 +1,7 @@
+## [3.1.0] - September 13rd, 2022
+
+- Add `indicatorAlignment` parameter for both `ExpandChild` and `ExpandText` widgets.
+
 ## [3.0.0] - September 12nd, 2022
 
 - **BREAKING CHANGE:** Set min Flutter version to 3.3.0.

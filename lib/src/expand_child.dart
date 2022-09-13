@@ -62,6 +62,9 @@ class ExpandChild extends StatefulWidget {
   /// Defaults to `0.0`.
   final double collapsedVisibilityFactor;
 
+  /// Adjust horizontal alignment of the indicator.
+  final Alignment? indicatorAlignment;
+
   const ExpandChild({
     super.key,
     required this.child,
@@ -79,6 +82,7 @@ class ExpandChild extends StatefulWidget {
     this.indicatorHintTextStyle,
     this.capitalizeIndicatorHintText = true,
     this.collapsedVisibilityFactor = 0,
+    this.indicatorAlignment,
   }) : assert(
           collapsedVisibilityFactor >= 0 && collapsedVisibilityFactor <= 1,
           'The parameter collapsedHeightFactor must lay between 0 and 1',
@@ -160,6 +164,7 @@ class _ExpandChildState extends State<ExpandChild>
         _ExpandChildIndicator(
           heightIndicatorFactor:
               widget.hideIndicatorOnExpand ? 1 - _expandFactor.value : 1.0,
+          alignment: widget.indicatorAlignment,
           child:
               widget.indicatorBuilder?.call(context, _handleTap, _isExpanded) ??
                   ExpandIndicator(
@@ -241,16 +246,19 @@ class _ExpandChildContent extends StatelessWidget {
 class _ExpandChildIndicator extends StatelessWidget {
   final double heightIndicatorFactor;
   final Widget child;
+  final Alignment? alignment;
 
   const _ExpandChildIndicator({
     required this.heightIndicatorFactor,
     required this.child,
+    this.alignment,
   });
 
   @override
   Widget build(BuildContext context) {
     return ClipRect(
       child: Align(
+        alignment: alignment ?? Alignment.center,
         heightFactor: heightIndicatorFactor,
         child: child,
       ),
