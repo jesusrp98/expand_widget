@@ -1,3 +1,8 @@
+## [3.1.1] - February 2nd, 2023
+
+- Update default search page style to match Material 3.
+- Add `very_good_analysis` package.
+
 ## [3.1.0] - September 13rd, 2022
 
 - Add `indicatorAlignment` parameter for both `ExpandChild` and `ExpandText` widgets.
