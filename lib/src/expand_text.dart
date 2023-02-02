@@ -1,12 +1,12 @@
+import 'package:expand_widget/src/expand_indicator.dart';
+import 'package:expand_widget/src/indicator_builder.dart';
 import 'package:flutter/material.dart';
-
-import 'expand_indicator.dart';
-import 'indicator_builder.dart';
 
 /// Default expand animation duration.
 const _kExpandDuration = Duration(milliseconds: 300);
 
-/// This widget is used to show parcial text, if the text is too big for the parent size.
+/// This widget is used to show parcial text,
+/// if the text is too big for the parent size.
 /// You can specify the [maxLines] parameter. If the text is short enough,
 /// no 'expand indicator' widget will be shown.
 class ExpandText extends StatefulWidget {
@@ -16,7 +16,9 @@ class ExpandText extends StatefulWidget {
   /// How long the expanding animation takes. Default is 300ms.
   final Duration animationDuration;
 
-  /// Maximun number of lines the widget shows when it's minimized. Default is 8.
+  /// Maximun number of lines the widget shows when it's minimized.
+  ///
+  /// Default is 8.
   final int maxLines;
 
   /// Corresponds to the style parameter of the text view.
@@ -48,11 +50,13 @@ class ExpandText extends StatefulWidget {
   final ExpandIndicatorStyle expandIndicatorStyle;
 
   /// Message used as a tooltip when the widget is minimized.
-  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
+  /// Default value set
+  /// to [MaterialLocalizations.of(context).collapsedIconTapHint].
   final String? indicatorCollapsedHint;
 
   /// Message used as a tooltip when the widget is maximazed.
-  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
+  /// Default value set
+  /// to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String? indicatorExpandedHint;
 
   /// Defines indicator padding value.
@@ -114,7 +118,7 @@ class _ExpandTextState extends State<ExpandText>
   static final _easeInCurve = CurveTween(curve: Curves.easeInOutCubic);
 
   /// Controlls the rotation of the indicator icon widget.
-  static final _halfTurn = Tween(begin: 0.0, end: 0.5);
+  static final _halfTurn = Tween<double>(begin: 0, end: 0.5);
 
   /// General animation controller.
   late AnimationController _controller;
@@ -173,6 +177,10 @@ class _ExpandTextState extends State<ExpandText>
   /// the [child] parameter will contain the child information, passed to
   /// this instance of the object.
   Widget _buildChildren(BuildContext context, Widget? child) {
+    if (child == null) {
+      return const SizedBox.shrink();
+    }
+
     return LayoutBuilder(
       builder: (context, size) {
         final defaultTextStyle = (child as DefaultTextStyle).style;
@@ -244,7 +252,7 @@ class _ExpandTextState extends State<ExpandText>
 
   /// Returns the actual maximun number of allowed lines,
   /// depending on [_isExpanded].
-  /// If [overflow] is set to ellipsis, it must not return null,
+  /// If `overflow` is set to ellipsis, it must not return null,
   /// otherwise the entire app could explode :)
   int? get _maxLines {
     if (_isExpanded) {
@@ -262,8 +270,8 @@ class _ExpandTextState extends State<ExpandText>
       child: DefaultTextStyle(
         style: Theme.of(context)
             .textTheme
-            .bodyText2!
-            .copyWith(color: Theme.of(context).textTheme.caption!.color)
+            .bodyMedium!
+            .copyWith(color: Theme.of(context).textTheme.bodySmall?.color)
             .merge(widget.style),
         child: Text(
           widget.data,

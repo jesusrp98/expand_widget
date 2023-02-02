@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Render mode selection of the [ExpandArrow] widget.
+/// Render mode selection of the `ExpandArrow` widget.
 enum ExpandIndicatorStyle {
   /// Only display an icon, tipically a [Icons.expand_more] icon.
   icon,
@@ -12,7 +12,7 @@ enum ExpandIndicatorStyle {
   both,
 }
 
-/// This widget is used in both [ExpandChild] & [ExpandText] widgets to show
+/// This widget is used in both `ExpandChild` & `ExpandText` widgets to show
 /// the hidden information to the user. It posses an [animation] parameter.
 /// Most widget parameters are customizable.
 class ExpandIndicator extends StatelessWidget {
@@ -27,11 +27,13 @@ class ExpandIndicator extends StatelessWidget {
   final VoidCallback? onTap;
 
   /// String used as a tooltip when the widget is minimized.
-  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
+  /// Default value set
+  /// to [MaterialLocalizations.of(context).collapsedIconTapHint].
   final String? collapsedHint;
 
   /// String used as a tooltip when the widget is maximazed.
-  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
+  /// Default value set
+  /// to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String? expandedHint;
 
   /// Defines indicator padding value.
@@ -98,17 +100,17 @@ class ExpandIndicator extends StatelessWidget {
               RotationTransition(
                 turns: animation,
                 child: Icon(
-                  icon ?? Icons.expand_more,
+                  icon ?? Icons.expand_more_rounded,
                   color:
-                      iconColor ?? Theme.of(context).textTheme.caption!.color,
+                      iconColor ?? Theme.of(context).textTheme.bodySmall?.color,
                   size: iconSize,
                 ),
               ),
             if (isNotIcon) ...[
               const SizedBox(width: 2),
               DefaultTextStyle(
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      color: Theme.of(context).textTheme.caption!.color,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      color: Theme.of(context).textTheme.bodySmall?.color,
                     ),
                 child: Text(
                   capitalizeHintText

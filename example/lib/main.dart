@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text(
                     'Expand Text',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
                   const ExpandText(
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text(
                     'Expand Child',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
                   OutlinedButton(
@@ -98,7 +98,7 @@ class HomePage extends StatelessWidget {
                     alignment: Alignment.topCenter,
                     child: Text(
                       'Expand Child Horizontally',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -140,7 +140,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text(
                     'Custom icon & text',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
                   OutlinedButton(
@@ -182,7 +182,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text(
                     'Custom widget',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 8),
                   OutlinedButton(

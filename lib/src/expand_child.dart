@@ -1,7 +1,6 @@
+import 'package:expand_widget/src/expand_indicator.dart';
+import 'package:expand_widget/src/indicator_builder.dart';
 import 'package:flutter/material.dart';
-
-import 'expand_indicator.dart';
-import 'indicator_builder.dart';
 
 /// Default expand animation duration.
 const _kExpandDuration = Duration(milliseconds: 300);
@@ -29,11 +28,13 @@ class ExpandChild extends StatefulWidget {
   final ExpandIndicatorStyle expandIndicatorStyle;
 
   /// Message used as a tooltip when the widget is minimized.
-  /// Default value set to [MaterialLocalizations.of(context).collapsedIconTapHint].
+  /// Default value set
+  /// to [MaterialLocalizations.of(context).collapsedIconTapHint].
   final String? indicatorCollapsedHint;
 
   /// Message used as a tooltip when the widget is maximazed.
-  /// Default value set to [MaterialLocalizations.of(context).expandedIconTapHint].
+  /// Default value set
+  /// to [MaterialLocalizations.of(context).expandedIconTapHint].
   final String? indicatorExpandedHint;
 
   /// Defines indicator padding value.
@@ -98,7 +99,7 @@ class _ExpandChildState extends State<ExpandChild>
   static final _easeInCurve = CurveTween(curve: Curves.easeInOutCubic);
 
   /// Controlls the rotation of the indicator icon widget.
-  static final _halfTurn = Tween(begin: 0.0, end: 0.5);
+  static final _halfTurn = Tween<double>(begin: 0, end: 0.5);
 
   /// General animation controller.
   late AnimationController _controller;
@@ -124,9 +125,9 @@ class _ExpandChildState extends State<ExpandChild>
 
     // Initializing both animations, depending on the [_easeInCurve] curve
     _expandFactor = _controller.drive(
-      Tween(
+      Tween<double>(
         begin: widget.collapsedVisibilityFactor,
-        end: 1.0,
+        end: 1,
       ).chain(_easeInCurve),
     );
     _iconTurns = _controller.drive(_halfTurn.chain(_easeInCurve));

@@ -1,7 +1,8 @@
 # Expand Widget
 
 [![Package](https://img.shields.io/pub/v/expand_widget.svg?style=for-the-badge)](https://pub.dartlang.org/packages/expand_widget)
-[![Build](https://img.shields.io/github/workflow/status/jesusrp98/expand_widget/Flutter%20Package%20CI?style=for-the-badge)](https://github.com/jesusrp98/expand_widget/actions)
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg?style=for-the-badge)](https://pub.dev/packages/very_good_analysis)
+[![Build](https://img.shields.io/github/actions/workflow/status/jesusrp98/expand_widget/flutter_package.yml?branch=master&style=for-the-badge)](https://github.com/jesusrp98/expand_widget/actions)
 [![Patreon](https://img.shields.io/badge/Support-Patreon-orange.svg?style=for-the-badge)](https://www.patreon.com/jesusrp98)
 [![License](https://img.shields.io/github/license/jesusrp98/expand_widget.svg?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
